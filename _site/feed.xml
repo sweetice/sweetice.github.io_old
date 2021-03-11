@@ -1,0 +1,628 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://127.0.0.1:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://127.0.0.1:4000/" rel="alternate" type="text/html" /><updated>2021-03-11T05:21:34-08:00</updated><id>http://127.0.0.1:4000/feed.xml</id><title type="html">Qiang He’s Homepage (CASIA)</title><subtitle>Homepage</subtitle><author><name>Qiang He (何强)</name></author><entry><title type="html">配置ubuntu系统常用技能</title><link href="http://127.0.0.1:4000/posts/2019/12/skills-on-ubuntu/" rel="alternate" type="text/html" title="配置ubuntu系统常用技能" /><published>2019-12-25T00:00:00-08:00</published><updated>2019-12-25T00:00:00-08:00</updated><id>http://127.0.0.1:4000/posts/2019/12/Config_static_ipv6</id><content type="html" xml:base="http://127.0.0.1:4000/posts/2019/12/skills-on-ubuntu/">&lt;h2 id=&quot;配置静态ipv6地址&quot;&gt;配置静态ipv6地址&lt;/h2&gt;
+
+&lt;p&gt;首先进入编辑界面&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;vi /etc/network/interfaces
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;再添加&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;iface eth0 inet6 static
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;配置新用户&quot;&gt;配置新用户&lt;/h2&gt;
+
+&lt;p&gt;这里推荐这种方式&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;useradd -d /home/user_name -m user_name
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;在home/下创建一个user_name 目录&lt;/p&gt;
+
+&lt;p&gt;之后再配置密码&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;passwd user_name
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;为该用户指定命令解释程序（通常为/bin/bash）&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;usermod -s /bin/bash user_name
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;删除账号&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;userdel -r user_name
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;-r 参数为删除该目录下所有的文件&lt;/p&gt;
+
+&lt;h2 id=&quot;ssh-相关服务&quot;&gt;SSH 相关服务&lt;/h2&gt;
+
+&lt;h3 id=&quot;指定ssh端口映射&quot;&gt;指定ssh端口映射:&lt;/h3&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssh -L 6006:localhost:6006 username@ip
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;杀死占用某个端口的程序&quot;&gt;杀死占用某个端口的程序：&lt;/h3&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fuser 6006/tcp -k
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3 id=&quot;快捷ssh命令访问服务器&quot;&gt;快捷ssh命令访问服务器&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;生成ssh 公钥
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssh-keygen
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;上传到服务器
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;scp -r ~/.ssh/id_rsa.pub  mirror@170.18.40.99:~/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;写入
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cat id_rsa.pub &amp;gt;&amp;gt; ~/.ssh/authorized_keys
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;在本地处理
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;vim ~/.ssh/config
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Host alians
+  HostName dev.example.com
+  Port 22
+  User fooey
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;修改文件权限
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo chmod 600 .ssh/config 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file/&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;限定服务器python程序数量&quot;&gt;限定服务器python程序数量&lt;/h2&gt;
+
+&lt;p&gt;原理是替换掉python程序启动方式&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;alias python='run-one python'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Qiang He (何强)</name></author><category term="skills" /><summary type="html">配置静态ipv6地址</summary></entry><entry><title type="html">How to plot performance figures in reinforcement learning papers</title><link href="http://127.0.0.1:4000/posts/2019/04/plot-performance-figures-in-rl/" rel="alternate" type="text/html" title="How to plot performance figures in reinforcement learning papers" /><published>2019-04-19T00:00:00-07:00</published><updated>2019-04-19T00:00:00-07:00</updated><id>http://127.0.0.1:4000/posts/2019/04/How-to-plot-figures-like-RL-papers</id><content type="html" xml:base="http://127.0.0.1:4000/posts/2019/04/plot-performance-figures-in-rl/">&lt;h1 id=&quot;如何绘制出强化学习论文里面的曲线图&quot;&gt;如何绘制出强化学习论文里面的曲线图&lt;/h1&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://s2.ax1x.com/2019/04/10/ATk7lt.png&quot; alt=&quot;论文里面好看的图&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;paper里面含有精美的图能够增加文章中的概率, 那么强化学习论文里面那种精美的图到底是怎么画出来的呢?&lt;br /&gt;
+答案是:使用seaborn绘制. 有人也提出来,可以使用origin绘制,但考虑到数据从python体系内转换到origin格式. 需要借助一些中介工具(比如excel), 这样子会增加难度.因此我们还是考虑使用seaborn来绘制.&lt;/p&gt;
+
+&lt;p&gt;seaborn风格的图片如下:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://s2.ax1x.com/2019/04/10/ATABB8.png&quot; alt=&quot;seaborn&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;绘图需要用到的数据&quot;&gt;绘图需要用到的数据&lt;/h2&gt;
+
+&lt;p&gt;在RL里面,我们用来画图的数据一般包含:算法名字(用来分类), 平均reward回报, 随机种子(用来解决), 以及step次数.&lt;/p&gt;
+
+&lt;p&gt;我们使用随机数据来生成这样的图片:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+time = np.linspace(0,200,201).reshape(-1,1)
+Algo = ['PPO', 'DDPG', 'TRPO', 'DDPG-SG']
+
+
+all = pd.DataFrame([])
+for seed in range(10):
+    for algo in Algo:
+        data = pd.DataFrame(np.ones((201, 4)))
+        data.columns = ['step', 'algo', 'avg_reward', 'seed']
+        data['step'] = time
+        data['algo'] = algo
+        data['avg_reward'] = time + np.random.randn(201,1)*10
+        data['seed'] = seed
+        all = pd.concat([all, data], 0)
+
+sns.lineplot(x='step', y='avg_reward', data=all, hue='algo')
+plt.show()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;得到的效果:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://s2.ax1x.com/2019/04/10/ATA6hj.png&quot; alt=&quot;效果&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;api详细信息请点&lt;a href=&quot;https://seaborn.pydata.org/generated/seaborn.lineplot.html#seaborn.lineplot&quot;&gt;此处&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;api细节&quot;&gt;API细节&lt;/h2&gt;
+
+&lt;p&gt;lineplot带有大量的参数&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-angular2html&quot;&gt;seaborn.lineplot(x=None, y=None, hue=None, size=None, 
+style=None, data=None, palette=None, hue_order=None, 
+hue_norm=None, sizes=None, size_order=None, size_norm=None, 
+dashes=True, markers=None, style_order=None, units=None, 
+estimator='mean', ci=95, n_boot=1000, sort=True, 
+err_style='band', err_kws=None, legend='brief', ax=None, **kwargs)¶
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;但是我们需要用到的参数就是那么几个&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;x&lt;br /&gt;
+输入的横坐标,注意横坐标的取值不一定是唯一的.在RL中,我们输入的横坐标一般是step.&lt;/li&gt;
+  &lt;li&gt;y 
+纵坐标, 我们的纵坐标一般是平均回报.&lt;/li&gt;
+  &lt;li&gt;hue&lt;br /&gt;
+按照什么标准来分类画图.一般以算法来区分.&lt;/li&gt;
+  &lt;li&gt;ci &lt;br /&gt;
+置信区间的大小, 设置为”sd”时候,就会画出标准差范围.一般取95.
+-error_style&lt;br /&gt;
+误差带的类型,可在band和bars之间选择.一般选择band.&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Qiang He (何强)</name></author><category term="Reinforcement Learning" /><category term="skills" /><summary type="html">如何绘制出强化学习论文里面的曲线图</summary></entry><entry><title type="html">How to installation mpi4py in your ubuntu</title><link href="http://127.0.0.1:4000/posts/2019/03/install-mpi4py/" rel="alternate" type="text/html" title="How to installation mpi4py in your ubuntu" /><published>2019-03-18T00:00:00-07:00</published><updated>2019-03-18T00:00:00-07:00</updated><id>http://127.0.0.1:4000/posts/2019/03/How-to-install-mpi4py-in-your-ubuntu</id><content type="html" xml:base="http://127.0.0.1:4000/posts/2019/03/install-mpi4py/">&lt;h2 id=&quot;how-to-install-mpi4py-in-your-ubuntu-computer&quot;&gt;How to install mpi4py in your ubuntu computer&lt;/h2&gt;
+
+&lt;p&gt;首先要说明的是，直接使用pip　安装并不可取．&lt;/p&gt;
+
+&lt;h2 id=&quot;1-安装openmpi&quot;&gt;1. 安装openmpi&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;1.1 下载
+URL: http://www.open-mpi.org/software/ompi/v1.10/&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;wget https://www.open-mpi.org/software/ompi/v1.10/downloads/openmpi-1.10.2.tar.gz
+tar xvzf openmpi-1.10.x.tar.gz
+cd openmpi-xxx/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;1.2 编译安装&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;首先编译:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./configure
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;注意：不要使用&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash ./configure
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;接下来安装:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo make all install
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;注意:这里必须要使用sudo,否则会提示你权限不足&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;1.3 添加环境变量&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;进入~目录后&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo gedit .bashrc
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;在最后一行添加上:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#mpi4py
+export LD_LIBRARY_PATH+=:/usr/local/lib
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;激活一下:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;source /etc/profile
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;1.4 进行测试&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd openmpi-1.10.2/examples
+make
+mpirun -np 4 hello_c
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;当你的电脑上面显示:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Hello, world, I am 0 of 4, (Open MPI v1.10.2, package: Open MPI mirror@agent Distribution, ident: 1.10.2, repo rev: v1.10.1-145-g799148f, Jan 21, 2016, 123)
+Hello, world, I am 2 of 4, (Open MPI v1.10.2, package: Open MPI mirror@agent Distribution, ident: 1.10.2, repo rev: v1.10.1-145-g799148f, Jan 21, 2016, 123)
+Hello, world, I am 3 of 4, (Open MPI v1.10.2, package: Open MPI mirror@agent Distribution, ident: 1.10.2, repo rev: v1.10.1-145-g799148f, Jan 21, 2016, 123)
+Hello, world, I am 1 of 4, (Open MPI v1.10.2, package: Open MPI mirror@agent Distribution, ident: 1.10.2, repo rev: v1.10.1-145-g799148f, Jan 21, 2016, 123)
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;这就说明openmpi安装好了.&lt;/p&gt;
+
+&lt;h2 id=&quot;2-安装mpi4py&quot;&gt;2. 安装mpi4py&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;2.1 激活环境变量&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;source ~/.bashrc
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;2.2 安装mpi4py&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip install mpi4py
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;出现一下信息:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
+Collecting mpi4py
+  Using cached https://pypi.tuna.tsinghua.edu.cn/packages/55/a2/c827b196070e161357b49287fa46d69f25641930fd5f854722319d431843/mpi4py-3.0.1.tar.gz
+Building wheels for collected packages: mpi4py
+  Building wheel for mpi4py (setup.py) ... done
+  Stored in directory: /home/mirror/.cache/pip/wheels/73/ef/7a/e81433083a06d8735f0b50e1e388168b39b88444fd81fe5f27
+Successfully built mpi4py
+Installing collected packages: mpi4py
+Successfully installed mpi4py-3.0.1
+You are using pip version 19.0.2, however version 19.0.3 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;说明已经成功安装上了&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;2.3 检测是否成功安装&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import mpi4py.MPI as MPI
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;之后再&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;dir(MPI)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;出现&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;['AINT', 'ANY_SOURCE', 'ANY_TAG', 'APPNUM', 'Add_error_class', 'Add_error_code', 'Add_error_string', 'Aint_add', 'Aint_diff', 'Alloc_mem', 'Attach_buffer', 'BAND', 'BOOL', 'BOR', 'BOTTOM', 'BSEND_OVERHEAD', 'BXOR', 'BYTE', 'CART', 'CHAR', 'CHARACTER', 'COMBINER_CONTIGUOUS', 'COMBINER_DARRAY', 'COMBINER_DUP', 'COMBINER_F90_COMPLEX', 'COMBINER_F90_INTEGER', 'COMBINER_F90_REAL', 'COMBINER_HINDEXED', 'COMBINER_HINDEXED_BLOCK', 'COMBINER_HVECTOR', 'COMBINER_INDEXED', 'COMBINER_INDEXED_BLOCK', 'COMBINER_NAMED', 'COMBINER_RESIZED', 'COMBINER_STRUCT', 'COMBINER_SUBARRAY', 'COMBINER_VECTOR', 'COMM_NULL', 'COMM_SELF', 'COMM_TYPE_SHARED', 'COMM_WORLD', 'COMPLEX', 'COMPLEX16', 'COMPLEX32', 'COMPLEX4', 'COMPLEX8', 'CONGRUENT', 'COUNT', 'CXX_BOOL', 'CXX_DOUBLE_COMPLEX', 'CXX_FLOAT_COMPLEX', 'CXX_LONG_DOUBLE_COMPLEX', 'C_BOOL', 'C_COMPLEX', 'C_DOUBLE_COMPLEX', 'C_FLOAT_COMPLEX', 'C_LONG_DOUBLE_COMPLEX', 'Cartcomm', 'Close_port', 'Comm', 'Compute_dims', 'DATATYPE_NULL', 'DISPLACEMENT_CURRENT', 'DISP_CUR', 'DISTRIBUTE_BLOCK', 'DISTRIBUTE_CYCLIC', 'DISTRIBUTE_DFLT_DARG', 'DISTRIBUTE_NONE', 'DIST_GRAPH', 'DOUBLE', 'DOUBLE_COMPLEX', 'DOUBLE_INT', 'DOUBLE_PRECISION', 'Datatype', 'Detach_buffer', 'Distgraphcomm', 'ERRHANDLER_NULL', 'ERRORS_ARE_FATAL', 'ERRORS_RETURN', 'ERR_ACCESS', 'ERR_AMODE', 'ERR_ARG', 'ERR_ASSERT', 'ERR_BAD_FILE', 'ERR_BASE', 'ERR_BUFFER', 'ERR_COMM', 'ERR_CONVERSION', 'ERR_COUNT', 'ERR_DIMS', 'ERR_DISP', 'ERR_DUP_DATAREP', 'ERR_FILE', 'ERR_FILE_EXISTS', 'ERR_FILE_IN_USE', 'ERR_GROUP', 'ERR_INFO', 'ERR_INFO_KEY', 'ERR_INFO_NOKEY', 'ERR_INFO_VALUE', 'ERR_INTERN', 'ERR_IN_STATUS', 'ERR_IO', 'ERR_KEYVAL', 'ERR_LASTCODE', 'ERR_LOCKTYPE', 'ERR_NAME', 'ERR_NOT_SAME', 'ERR_NO_MEM', 'ERR_NO_SPACE', 'ERR_NO_SUCH_FILE', 'ERR_OP', 'ERR_OTHER', 'ERR_PENDING', 'ERR_PORT', 'ERR_QUOTA', 'ERR_RANK', 'ERR_READ_ONLY', 'ERR_REQUEST', 'ERR_RMA_ATTACH', 'ERR_RMA_CONFLICT', 'ERR_RMA_FLAVOR', 'ERR_RMA_RANGE', 'ERR_RMA_SHARED', 'ERR_RMA_SYNC', 'ERR_ROOT', 'ERR_SERVICE', 'ERR_SIZE', 'ERR_SPAWN', 'ERR_TAG', 'ERR_TOPOLOGY', 'ERR_TRUNCATE', 'ERR_TYPE', 'ERR_UNKNOWN', 'ERR_UNSUPPORTED_DATAREP', 'ERR_UNSUPPORTED_OPERATION', 'ERR_WIN', 'Errhandler', 'Exception', 'FILE_NULL', 'FLOAT', 'FLOAT_INT', 'F_BOOL', 'F_COMPLEX', 'F_DOUBLE', 'F_DOUBLE_COMPLEX', 'F_FLOAT', 'F_FLOAT_COMPLEX', 'F_INT', 'File', 'Finalize', 'Free_mem', 'GRAPH', 'GROUP_EMPTY', 'GROUP_NULL', 'Get_address', 'Get_error_class', 'Get_error_string', 'Get_library_version', 'Get_processor_name', 'Get_version', 'Graphcomm', 'Grequest', 'Group', 'HOST', 'IDENT', 'INFO_ENV', 'INFO_NULL', 'INT', 'INT16_T', 'INT32_T', 'INT64_T', 'INT8_T', 'INTEGER', 'INTEGER1', 'INTEGER16', 'INTEGER2', 'INTEGER4', 'INTEGER8', 'INT_INT', 'IN_PLACE', 'IO', 'Info', 'Init', 'Init_thread', 'Intercomm', 'Intracomm', 'Is_finalized', 'Is_initialized', 'Is_thread_main', 'KEYVAL_INVALID', 'LAND', 'LASTUSEDCODE', 'LB', 'LOCK_EXCLUSIVE', 'LOCK_SHARED', 'LOGICAL', 'LOGICAL1', 'LOGICAL2', 'LOGICAL4', 'LOGICAL8', 'LONG', 'LONG_DOUBLE', 'LONG_DOUBLE_INT', 'LONG_INT', 'LONG_LONG', 'LOR', 'LXOR', 'Lookup_name', 'MAX', 'MAXLOC', 'MAX_DATAREP_STRING', 'MAX_ERROR_STRING', 'MAX_INFO_KEY', 'MAX_INFO_VAL', 'MAX_LIBRARY_VERSION_STRING', 'MAX_OBJECT_NAME', 'MAX_PORT_NAME', 'MAX_PROCESSOR_NAME', 'MESSAGE_NO_PROC', 'MESSAGE_NULL', 'MIN', 'MINLOC', 'MODE_APPEND', 'MODE_CREATE', 'MODE_DELETE_ON_CLOSE', 'MODE_EXCL', 'MODE_NOCHECK', 'MODE_NOPRECEDE', 'MODE_NOPUT', 'MODE_NOSTORE', 'MODE_NOSUCCEED', 'MODE_RDONLY', 'MODE_RDWR', 'MODE_SEQUENTIAL', 'MODE_UNIQUE_OPEN', 'MODE_WRONLY', 'Message', 'NO_OP', 'OFFSET', 'OP_NULL', 'ORDER_C', 'ORDER_F', 'ORDER_FORTRAN', 'Op', 'Open_port', 'PACKED', 'PROC_NULL', 'PROD', 'Pcontrol', 'Prequest', 'Publish_name', 'Query_thread', 'REAL', 'REAL16', 'REAL2', 'REAL4', 'REAL8', 'REPLACE', 'REQUEST_NULL', 'ROOT', 'Register_datarep', 'Request', 'SEEK_CUR', 'SEEK_END', 'SEEK_SET', 'SHORT', 'SHORT_INT', 'SIGNED_CHAR', 'SIGNED_INT', 'SIGNED_LONG', 'SIGNED_LONG_LONG', 'SIGNED_SHORT', 'SIMILAR', 'SINT16_T', 'SINT32_T', 'SINT64_T', 'SINT8_T', 'SUBVERSION', 'SUCCESS', 'SUM', 'Status', 'TAG_UB', 'THREAD_FUNNELED', 'THREAD_MULTIPLE', 'THREAD_SERIALIZED', 'THREAD_SINGLE', 'TWOINT', 'TYPECLASS_COMPLEX', 'TYPECLASS_INTEGER', 'TYPECLASS_REAL', 'Topocomm', 'UB', 'UINT16_T', 'UINT32_T', 'UINT64_T', 'UINT8_T', 'UNDEFINED', 'UNEQUAL', 'UNIVERSE_SIZE', 'UNSIGNED', 'UNSIGNED_CHAR', 'UNSIGNED_INT', 'UNSIGNED_LONG', 'UNSIGNED_LONG_LONG', 'UNSIGNED_SHORT', 'UNWEIGHTED', 'Unpublish_name', 'VERSION', 'WCHAR', 'WEIGHTS_EMPTY', 'WIN_BASE', 'WIN_CREATE_FLAVOR', 'WIN_DISP_UNIT', 'WIN_FLAVOR', 'WIN_FLAVOR_ALLOCATE', 'WIN_FLAVOR_CREATE', 'WIN_FLAVOR_DYNAMIC', 'WIN_FLAVOR_SHARED', 'WIN_MODEL', 'WIN_NULL', 'WIN_SEPARATE', 'WIN_SIZE', 'WIN_UNIFIED', 'WTIME_IS_GLOBAL', 'Win', 'Wtick', 'Wtime', '__builtins__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__pyx_capi__', '__spec__', '_addressof', '_handleof', '_keyval_registry', '_lock_table', '_set_abort_status', '_sizeof', '_typecode', '_typedict', '_typedict_c', '_typedict_f', 'get_vendor', 'memory', 'pickle']
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;这样子就说明安装成功了.&lt;/p&gt;</content><author><name>Qiang He (何强)</name></author><category term="skills" /><summary type="html">How to install mpi4py in your ubuntu computer</summary></entry><entry><title type="html">How to install cuda on ubuntu 1804</title><link href="http://127.0.0.1:4000/posts/2019/02/how-to-install-cuda-on-ubunutu-1804/" rel="alternate" type="text/html" title="How to install cuda on ubuntu 1804" /><published>2019-02-20T00:00:00-08:00</published><updated>2019-02-20T00:00:00-08:00</updated><id>http://127.0.0.1:4000/posts/2019/02/How-to-install-cuda-on-ubuntu1804</id><content type="html" xml:base="http://127.0.0.1:4000/posts/2019/02/how-to-install-cuda-on-ubunutu-1804/">&lt;h2 id=&quot;深度学习环境的安装-ubuntu-1804&quot;&gt;深度学习环境的安装 ubuntu 1804&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;1.查看是否支持CUDA，清理掉原来的驱动&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;使用如下命令：&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;lspci | grep -i nvidia
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;我得到的输出是：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;01:00.0 VGA compatible controller: NVIDIA Corporation GP104 [GeForce GTX 1070 Ti] (rev a1)
+01:00.1 Audio device: NVIDIA Corporation GP104 High Definition Audio Controller (rev a1)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;说明我的显卡是1070Ti。&lt;/p&gt;
+
+&lt;p&gt;再清理掉原来的驱动&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt-get autoremove --purge nvidia*
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;2.禁用nouveau
+在终端运行&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ lsmod | grep nouveau
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;如果有输出，说明nouveau正在运行，需要手动禁掉nouveau。&lt;/p&gt;
+
+&lt;p&gt;使用&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ sudo vim /etc/modprobe.d/blacklist-nouveau.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;在文件内写入：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;blacklist nouveau 
+options nouveau modeset=0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;执行&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ sudo update-initramfs -u
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;确定是否禁用成功&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ lsmod | grep nouveau
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;3.安装驱动&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;此处建议使用ubuntu自带的software &amp;amp; updates安装驱动。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;1 打开Software &amp;amp; Updates&lt;/li&gt;
+  &lt;li&gt;2 点击Additional Drivers&lt;/li&gt;
+  &lt;li&gt;3 选用 Using NVIDIA driver metapackage from nvidia-diver-390(proprietary, tested)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;或者考虑一下方式:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo add-apt-repository ppa:graphics-drivers/ppa      //添加ppa库到系统中
+sudo apt update         //  更新
+ 
+sudo ubuntu-drivers devices // 显示可以安装的nvidia驱动
+ 
+ 
+sudo apt install nvidia-xxx        //  xxx  代表你想安装的nVidia驱动的版本号
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/sweetice/sweetice.github.io/blob/master/figures/software%20and%20updates.png&quot; alt=&quot;Software and Updates&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;如果没有成功，那么就去&lt;a href=&quot;https://www.nvidia.cn/Download/index.aspx?lang=cn&quot;&gt;官网&lt;/a&gt;选择对应的版本安装。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/sweetice/sweetice.github.io/blob/master/figures/nvidia-driver.png&quot; alt=&quot;nvidia-driver&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;下载好之后，使用alt+ctrl+f1切换到tty1模式去，从ubuntu1804开始，可以不禁用lightdm了。&lt;/p&gt;
+
+&lt;p&gt;使用如下的命令安装&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ sudo bash ./NVIDIA-Linux-x86_64-410.93.run 
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;安装完成之后，切换回图形界面。
+接下来。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;4.安装cuda&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;上&lt;a href=&quot;https://developer.nvidia.com/cuda-90-download-archive&quot;&gt;官网&lt;/a&gt;下载cuda9.0的包。&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;https://developer.nvidia.com/cuda-90-download-archive
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;之后，关闭掉图形界面（方法同上），进入下载目录，执行如下命令：&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ sudo ./cuda_9.0_linux.run --verbose -silent --toolkit --override 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;一定要加入后面的参数&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;这样子不用经过繁琐的选择，能够直接安装上cuda。&lt;/p&gt;
+
+&lt;p&gt;现在你还缺少了一些库，安装他们&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ sudo apt-get install freeglut3-dev build-essential libx11-dev libxmu-dev libxi-dev libgl1-mesa-glx libglu1-mesa libglu1-mesa-dev
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;快要成功了，接下来添加一下环境变量&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ cd ~
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ sudo gedit ./bashrc
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;在文件的最后，加上：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;export PATH=&quot;$PATH:/usr/local/cuda-9.0/bin&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;然后退出，至此cuda安装完成。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;5.安装cudNN&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;去&lt;a href=&quot;https://developer.nvidia.com/rdp/cudnn-download&quot;&gt;官网&lt;/a&gt;下载cudnn（注意这里我们下载.tgz版本）&lt;/li&gt;
+  &lt;li&gt;下载好之后解压到本地&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$sudo tar -xzvf cudnn-9.0-linux-x64-v7.5.0.56.tgz 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;将文件拷贝至cuda的目录中
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo cp cuda/include/cudnn.h /usr/local/cuda/include
+sudo cp cuda/lib64/libcudnn* /usr/local/cuda/lib64
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;配置相应的环境变量&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gedit .bashrc
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;把这个加在最后一行：&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-9.0/lib64/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;6.测试&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;使用如下代码测试&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import torch
+torch.cuda.is_available()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;如果结果显示True，那么就可以使用了。&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import tensorflow as tf
+a = tf.constant([1.0,2.0,3.0],shape=[3],name='a')
+b = tf.constant([1.0,2.0,3.0],shape=[3],name='b')
+with tf.device('/gpu:1'):
+    c = a + b
+sess = tf.Session()
+sess.run(tf.global_variables_initializer())
+print(sess.run(c))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/sweetice/sweetice.github.io/blob/master/figures/cuda_is_available.png&quot; alt=&quot;cuda可以用了&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;一些你可能用到的命令&quot;&gt;一些你可能用到的命令&lt;/h2&gt;
+
+&lt;p&gt;查看占用apt进程的命令&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ps aux | grep -i apt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;杀死这种命令&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kill -9 id
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Qiang He (何强)</name></author><category term="skills" /><summary type="html">深度学习环境的安装 ubuntu 1804</summary></entry><entry><title type="html">Computing the gradients of gradients with pytorch</title><link href="http://127.0.0.1:4000/posts/2019/01/compute-gradients-of-gradients/" rel="alternate" type="text/html" title="Computing the gradients of gradients with pytorch" /><published>2019-01-26T00:00:00-08:00</published><updated>2019-01-26T00:00:00-08:00</updated><id>http://127.0.0.1:4000/posts/2019/01/Compute%20the%20gradients%20of%20gradients%20with%20pytorch</id><content type="html" xml:base="http://127.0.0.1:4000/posts/2019/01/compute-gradients-of-gradients/">&lt;h2 id=&quot;computing-the-gradients-of-gradients-with-pytorch&quot;&gt;Computing the gradients of gradients with pytorch&lt;/h2&gt;
+
+&lt;p&gt;Rencently, I am working with GAN and RL.For the puspose of smoothing the learning process, I need compute the gradients of gradients(the second order of gradients).&lt;/p&gt;
+
+&lt;p&gt;If you are fimilar with WGAN, you must know the lipschitz constrain. Implementation with GAN-gp, you need compute the gradients of D as constrain.&lt;/p&gt;
+
+&lt;p&gt;That is easy for you if you work with Tensorflow (I hate this tool!).&lt;/p&gt;
+
+&lt;p&gt;Pytorch is a useful tool, I love it.&lt;/p&gt;
+
+&lt;p&gt;We can use torch.autograd.grad to implement the code.&lt;/p&gt;
+
+&lt;p&gt;You can click &lt;a href=&quot;https://pytorch.org/docs/0.4.1/autograd.html#&quot;&gt;here&lt;/a&gt; to read the docs.&lt;/p&gt;
+
+&lt;p&gt;Let’s read the core code.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;torch.autograd.grad(outputs, inputs, grad_outputs=None, retain_graph=None, create_graph=False, only_inputs=True, allow_unused=False)[source]
+Computes and returns the sum of gradients of outputs w.r.t. the inputs.
+
+grad_outputs should be a sequence of length matching output containing the pre-computed gradients w.r.t. each of the outputs. If an output doesn’t require_grad, then the gradient can be None).
+
+If only_inputs is True, the function will only return a list of gradients w.r.t the specified inputs. If it’s False, then gradient w.r.t. all remaining leaves will still be computed, and will be accumulated into their .grad attribute.
+
+Parameters:	
+outputs (sequence of Tensor) – outputs of the differentiated function.
+inputs (sequence of Tensor) – Inputs w.r.t. which the gradient will be returned (and not accumulated into .grad).
+grad_outputs (sequence of Tensor) – Gradients w.r.t. each output. None values can be specified for scalar Tensors or ones that don’t require grad. If a None value would be acceptable for all grad_tensors, then this argument is optional. Default: None.
+retain_graph (bool, optional) – If False, the graph used to compute the grad will be freed. Note that in nearly all cases setting this option to True is not needed and often can be worked around in a much more efficient way. Defaults to the value of create_graph.
+create_graph (bool, optional) – If True, graph of the derivative will be constructed, allowing to compute higher order derivative products. Default: False.
+allow_unused (bool, optional) – If False, specifying inputs that were not used when computing outputs (and therefore their grad is always zero) is an error. Defaults to False.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;That’s ok. Here I give you guys two example.&lt;/p&gt;
+
+&lt;h2 id=&quot;example-1-gan-gp-&quot;&gt;Example 1: GAN-gp :&lt;/h2&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;def compute_gradient_penalty(D, real_samples, fake_samples):
+    &quot;&quot;&quot;Calculates the gradient penalty loss for WGAN GP&quot;&quot;&quot;
+    # Random weight term for interpolation between real and fake samples
+    alpha = Tensor(np.random.random((real_samples.size(0), 1, 1, 1)))
+    # Get random interpolation between real and fake samples
+    interpolates = (alpha * real_samples + ((1 - alpha) * fake_samples)).requires_grad_(True)
+    d_interpolates = D(interpolates)
+    fake = Variable(Tensor(real_samples.shape[0], 1).fill_(1.0), requires_grad=False)
+    # Get gradient w.r.t. interpolates
+    gradients = autograd.grad(
+        outputs=d_interpolates,
+        inputs=interpolates,
+        grad_outputs=fake,
+        create_graph=True,
+        retain_graph=True,
+        only_inputs=True,
+    )[0]
+    gradients = gradients.view(gradients.size(0), -1)
+    gradient_penalty = ((gradients.norm(2, dim=1) - 1) ** 2).mean()
+    return gradient_penalty
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If you are interested in WGAN-gp, you can click &lt;a href=&quot;https://github.com/sweetice/GAN-course-note/blob/master/GAN-code/wgan-gp.py&quot;&gt;here&lt;/a&gt; to read the core code.&lt;/p&gt;
+
+&lt;h2 id=&quot;example-2-in-any-network-&quot;&gt;Example 2: In any network :&lt;/h2&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    def compute_gradient_penalty(self, network, input):
+        # ref: https://github.com/eriklindernoren/PyTorch-GAN/blob/master/implementations/wgan_gp/wgan_gp.py
+        '''
+
+        :param input: state[index]
+        :param network: actor or critic
+        :return: gradient penalty
+        '''
+        input_ = torch.tensor(input).requires_grad_(True)
+        output = network(input_)
+        musk = torch.ones_like(output)
+        gradients = grad(output, input_, grad_outputs=musk,
+                         retain_graph=True, create_graph=True,
+                         allow_unused=True)[0]  # get tensor from tuple
+        gradients = gradients.view(-1, 1)
+        gradient_penalty = ((gradients.norm(2, dim=1) - 1) ** 2).mean()
+        return gradient_penalty
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If you are interested in reinforcement learning and general aritificial intelligence, you can click &lt;a href=&quot;https://github.com/sweetice/Deep-reinforcement-learning-with-pytorch&quot;&gt;here&lt;/a&gt;. :)&lt;/p&gt;
+
+&lt;p&gt;Enjoy yourself :)&lt;/p&gt;</content><author><name>Qiang He (何强)</name></author><category term="Reinforcement Learning" /><category term="Pytorch" /><summary type="html">Computing the gradients of gradients with pytorch</summary></entry><entry><title type="html"></title><link href="http://127.0.0.1:4000/2019-03-13-NVIDIA-SMI-has-failed-because-it-couldn't-communicate/" rel="alternate" type="text/html" title="" /><published></published><updated></updated><id>http://127.0.0.1:4000/2019-03-13-NVIDIA-SMI%20has%20failed%20because%20it%20couldn't%20communicate</id><content type="html" xml:base="http://127.0.0.1:4000/2019-03-13-NVIDIA-SMI-has-failed-because-it-couldn't-communicate/">&lt;p&gt;#　NVIDIA-SMI has failed because it couldn’t communicate with the NVIDIA driver. Make sure that the latest NVIDIA driver is installed and running&lt;/p&gt;
+
+&lt;p&gt;#＃ 问题描述：&lt;/p&gt;
+
+&lt;p&gt;某次使用电脑之后, 打开电脑之后输入nvidia-smi 提示&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;NVIDIA-SMI has failed because it couldn't communicate with the NVIDIA driver. Make sure that the latest NVIDIA driver is installed and running
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;##　问题原因
+这常常是因为用户在程序运行时强行关闭电脑，或者电脑断电而引起的．&lt;/p&gt;
+
+&lt;h2 id=&quot;解决方案&quot;&gt;解决方案&lt;/h2&gt;
+
+&lt;p&gt;大致就是重装一下驱动就可以&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;１. 卸载原有驱动
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt-get autoremove --purge nvidia*
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;增加ppa源&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo add-apt-repository ppa:graphics-drivers/ppa
+sudo apt update
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;检测显卡版本及推荐的驱动&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ubuntu-drivers devices
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;结果显示&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;== /sys/devices/pci0000:00/0000:00:01.0/0000:01:00.0 ==
+modalias : pci:v000010DEd00001B82sv00001458sd00003794bc03sc00i00
+vendor   : NVIDIA Corporation
+model    : GP104 [GeForce GTX 1070 Ti]
+driver   : nvidia-driver-390 - distro non-free recommended
+driver   : xserver-xorg-video-nouveau - distro free builtin
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;说明我这里应该去安装390的驱动&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;重装驱动&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt-get install nvidia-driver-390
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;重启
+这是最重要的一步,如果你不重启,那么重装之后立即nvidia-smi是会发现现在还是没有办法使用的,重启之后就好了&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nvidia-smi
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+-----------------------------------------------------------------------------+
+| NVIDIA-SMI 390.116                Driver Version: 390.116                   |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|===============================+======================+======================|
+|   0  GeForce GTX 107...  Off  | 00000000:01:00.0 Off |                  N/A |
+|  0%   55C    P2    40W / 180W |   1046MiB /  8119MiB |     19%      Default |
++-------------------------------+----------------------+----------------------+
+
++-----------------------------------------------------------------------------+
+| Processes:                                                       GPU Memory |
+|  GPU       PID   Type   Process name                             Usage      |
+|=============================================================================|
+|    0      1401      G   /usr/lib/xorg/Xorg                           249MiB |
+|    0      1573      G   /usr/bin/gnome-shell                         195MiB |
+|    0      2509      C   /home/mirror/anaconda3/bin/python            533MiB |
+|    0      2562      G   ...quest-channel-token=9028700102029312797    64MiB |
++-----------------------------------------------------------------------------+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Qiang He (何强)</name></author></entry></feed>

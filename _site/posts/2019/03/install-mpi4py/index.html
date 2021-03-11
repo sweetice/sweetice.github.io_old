@@ -1,0 +1,718 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+
+<meta charset="utf-8">
+
+
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>How to installation mpi4py in your ubuntu - Qiang He’s Homepage (CASIA)</title>
+
+
+
+
+
+
+
+<meta property="og:locale" content="en-US">
+<meta property="og:site_name" content="Qiang He's Homepage (CASIA)">
+<meta property="og:title" content="How to installation mpi4py in your ubuntu">
+
+
+  <link rel="canonical" href="http://127.0.0.1:4000/posts/2019/03/install-mpi4py/">
+  <meta property="og:url" content="http://127.0.0.1:4000/posts/2019/03/install-mpi4py/">
+
+
+
+  <meta property="og:description" content="How to install mpi4py in your ubuntu computer">
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2019-03-18T00:00:00-07:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Qiang He (何强)",
+      "url" : "http://127.0.0.1:4000",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="google-site-verification=6CU-DoIp0FraaNmQsqgvxCw5swk1BHoouEqmFRoeWNc" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://127.0.0.1:4000/feed.xml" type="application/atom+xml" rel="alternate" title="Qiang He's Homepage (CASIA) Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://127.0.0.1:4000/assets/css/main.css">
+
+<meta http-equiv="cleartype" content="on">
+    
+
+<!-- start custom head snippets -->
+<meta name="google-site-verification" content="r78CFkv8ENH5zPM3DqSoC5yKA2XG3eGnIypcz7l-dIg" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-185353848-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-185353848-1');
+</script>
+<link rel="apple-touch-icon" sizes="57x57" href="http://127.0.0.1:4000/images/apple-touch-icon-57x57.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="60x60" href="http://127.0.0.1:4000/images/apple-touch-icon-60x60.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="72x72" href="http://127.0.0.1:4000/images/apple-touch-icon-72x72.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="76x76" href="http://127.0.0.1:4000/images/apple-touch-icon-76x76.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="114x114" href="http://127.0.0.1:4000/images/apple-touch-icon-114x114.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="120x120" href="http://127.0.0.1:4000/images/apple-touch-icon-120x120.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="144x144" href="http://127.0.0.1:4000/images/apple-touch-icon-144x144.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="152x152" href="http://127.0.0.1:4000/images/apple-touch-icon-152x152.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="180x180" href="http://127.0.0.1:4000/images/apple-touch-icon-180x180.png?v=M44lzPylqQ">
+<link rel="icon" type="image/png" href="http://127.0.0.1:4000/images/favicon-32x32.png?v=M44lzPylqQ" sizes="32x32">
+<link rel="icon" type="image/png" href="http://127.0.0.1:4000/images/android-chrome-192x192.png?v=M44lzPylqQ" sizes="192x192">
+<link rel="icon" type="image/png" href="http://127.0.0.1:4000/images/favicon-96x96.png?v=M44lzPylqQ" sizes="96x96">
+<link rel="icon" type="image/png" href="http://127.0.0.1:4000/images/favicon-16x16.png?v=M44lzPylqQ" sizes="16x16">
+<link rel="manifest" href="http://127.0.0.1:4000/images/manifest.json?v=M44lzPylqQ">
+<link rel="mask-icon" href="http://127.0.0.1:4000/images/safari-pinned-tab.svg?v=M44lzPylqQ" color="#000000">
+<link rel="shortcut icon" href="/images/favicon.ico?v=M44lzPylqQ">
+<meta name="msapplication-TileColor" content="#000000">
+<meta name="msapplication-TileImage" content="http://127.0.0.1:4000/images/mstile-144x144.png?v=M44lzPylqQ">
+<meta name="msapplication-config" content="http://127.0.0.1:4000/images/browserconfig.xml?v=M44lzPylqQ">
+<meta name="theme-color" content="#ffffff">
+<link rel="stylesheet" href="http://127.0.0.1:4000/assets/css/academicons.css"/>
+
+<script type="text/x-mathjax-config"> MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } }); </script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+<!-- end custom head snippets -->
+
+    <meta name="google-site-verification" content="r78CFkv8ENH5zPM3DqSoC5yKA2XG3eGnIypcz7l-dIg" />
+  </head>
+
+  <body>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><div class="navicon"></div></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg"><a href="http://127.0.0.1:4000/">Qiang He's Homepage (CASIA)</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://127.0.0.1:4000/publications/">Publications</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://127.0.0.1:4000/talks/">Talks</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://127.0.0.1:4000/year-archive/">Blog Posts</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://127.0.0.1:4000/cv/">CV</a></li>
+          
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+
+
+<div id="main" role="main">
+  
+
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  <div class="author__avatar">
+    
+    	<img src="http://127.0.0.1:4000/images/qianghe2017.jpg" class="author__avatar" alt="Qiang He (何强)">
+    
+  </div>
+
+  <div class="author__content">
+    <h3 class="author__name">Qiang He (何强)</h3>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li><i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> Beijing, China</li>
+      
+      
+      
+      
+      
+       
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        <li><a href="https://github.com/sweetice"><i class="fab fa-fw fa-github" aria-hidden="true"></i> Github</a></li>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        <li><a href="https://scholar.google.com.hk/citations?user=l6Y2ZDYAAAAJ&hl=zh-CN"><i class="fas fa-fw fa-graduation-cap"></i> Google Scholar</a></li>
+      
+      
+      
+      
+      
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="How to installation mpi4py in your ubuntu">
+    <meta itemprop="description" content="How to install mpi4py in your ubuntu computer">
+    <meta itemprop="datePublished" content="March 18, 2019">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">How to installation mpi4py in your ubuntu
+</h1>
+          
+            <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+  
+	  3 minute read
+	
+</p>
+          
+        
+        
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2019-03-18T00:00:00-07:00">March 18, 2019</time></p>
+        
+        
+             
+        
+    
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        <h2 id="how-to-install-mpi4py-in-your-ubuntu-computer">How to install mpi4py in your ubuntu computer</h2>
+
+<p>首先要说明的是，直接使用pip　安装并不可取．</p>
+
+<h2 id="1-安装openmpi">1. 安装openmpi</h2>
+
+<ul>
+  <li>1.1 下载
+URL: http://www.open-mpi.org/software/ompi/v1.10/</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://www.open-mpi.org/software/ompi/v1.10/downloads/openmpi-1.10.2.tar.gz
+tar xvzf openmpi-1.10.x.tar.gz
+cd openmpi-xxx/
+</code></pre></div></div>
+
+<ul>
+  <li>1.2 编译安装</li>
+</ul>
+
+<p>首先编译:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./configure
+</code></pre></div></div>
+
+<p>注意：不要使用</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash ./configure
+</code></pre></div></div>
+
+<p>接下来安装:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo make all install
+</code></pre></div></div>
+
+<p>注意:这里必须要使用sudo,否则会提示你权限不足</p>
+
+<ul>
+  <li>1.3 添加环境变量</li>
+</ul>
+
+<p>进入~目录后</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo gedit .bashrc
+</code></pre></div></div>
+
+<p>在最后一行添加上:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#mpi4py
+export LD_LIBRARY_PATH+=:/usr/local/lib
+</code></pre></div></div>
+
+<p>激活一下:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>source /etc/profile
+</code></pre></div></div>
+
+<ul>
+  <li>1.4 进行测试</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd openmpi-1.10.2/examples
+make
+mpirun -np 4 hello_c
+</code></pre></div></div>
+
+<p>当你的电脑上面显示:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello, world, I am 0 of 4, (Open MPI v1.10.2, package: Open MPI mirror@agent Distribution, ident: 1.10.2, repo rev: v1.10.1-145-g799148f, Jan 21, 2016, 123)
+Hello, world, I am 2 of 4, (Open MPI v1.10.2, package: Open MPI mirror@agent Distribution, ident: 1.10.2, repo rev: v1.10.1-145-g799148f, Jan 21, 2016, 123)
+Hello, world, I am 3 of 4, (Open MPI v1.10.2, package: Open MPI mirror@agent Distribution, ident: 1.10.2, repo rev: v1.10.1-145-g799148f, Jan 21, 2016, 123)
+Hello, world, I am 1 of 4, (Open MPI v1.10.2, package: Open MPI mirror@agent Distribution, ident: 1.10.2, repo rev: v1.10.1-145-g799148f, Jan 21, 2016, 123)
+
+</code></pre></div></div>
+<p>这就说明openmpi安装好了.</p>
+
+<h2 id="2-安装mpi4py">2. 安装mpi4py</h2>
+
+<ul>
+  <li>2.1 激活环境变量</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>source ~/.bashrc
+</code></pre></div></div>
+
+<ul>
+  <li>2.2 安装mpi4py</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip install mpi4py
+</code></pre></div></div>
+
+<p>出现一下信息:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
+Collecting mpi4py
+  Using cached https://pypi.tuna.tsinghua.edu.cn/packages/55/a2/c827b196070e161357b49287fa46d69f25641930fd5f854722319d431843/mpi4py-3.0.1.tar.gz
+Building wheels for collected packages: mpi4py
+  Building wheel for mpi4py (setup.py) ... done
+  Stored in directory: /home/mirror/.cache/pip/wheels/73/ef/7a/e81433083a06d8735f0b50e1e388168b39b88444fd81fe5f27
+Successfully built mpi4py
+Installing collected packages: mpi4py
+Successfully installed mpi4py-3.0.1
+You are using pip version 19.0.2, however version 19.0.3 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.
+
+</code></pre></div></div>
+<p>说明已经成功安装上了</p>
+
+<ul>
+  <li>2.3 检测是否成功安装</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import mpi4py.MPI as MPI
+</code></pre></div></div>
+
+<p>之后再</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dir(MPI)
+</code></pre></div></div>
+
+<p>出现</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>['AINT', 'ANY_SOURCE', 'ANY_TAG', 'APPNUM', 'Add_error_class', 'Add_error_code', 'Add_error_string', 'Aint_add', 'Aint_diff', 'Alloc_mem', 'Attach_buffer', 'BAND', 'BOOL', 'BOR', 'BOTTOM', 'BSEND_OVERHEAD', 'BXOR', 'BYTE', 'CART', 'CHAR', 'CHARACTER', 'COMBINER_CONTIGUOUS', 'COMBINER_DARRAY', 'COMBINER_DUP', 'COMBINER_F90_COMPLEX', 'COMBINER_F90_INTEGER', 'COMBINER_F90_REAL', 'COMBINER_HINDEXED', 'COMBINER_HINDEXED_BLOCK', 'COMBINER_HVECTOR', 'COMBINER_INDEXED', 'COMBINER_INDEXED_BLOCK', 'COMBINER_NAMED', 'COMBINER_RESIZED', 'COMBINER_STRUCT', 'COMBINER_SUBARRAY', 'COMBINER_VECTOR', 'COMM_NULL', 'COMM_SELF', 'COMM_TYPE_SHARED', 'COMM_WORLD', 'COMPLEX', 'COMPLEX16', 'COMPLEX32', 'COMPLEX4', 'COMPLEX8', 'CONGRUENT', 'COUNT', 'CXX_BOOL', 'CXX_DOUBLE_COMPLEX', 'CXX_FLOAT_COMPLEX', 'CXX_LONG_DOUBLE_COMPLEX', 'C_BOOL', 'C_COMPLEX', 'C_DOUBLE_COMPLEX', 'C_FLOAT_COMPLEX', 'C_LONG_DOUBLE_COMPLEX', 'Cartcomm', 'Close_port', 'Comm', 'Compute_dims', 'DATATYPE_NULL', 'DISPLACEMENT_CURRENT', 'DISP_CUR', 'DISTRIBUTE_BLOCK', 'DISTRIBUTE_CYCLIC', 'DISTRIBUTE_DFLT_DARG', 'DISTRIBUTE_NONE', 'DIST_GRAPH', 'DOUBLE', 'DOUBLE_COMPLEX', 'DOUBLE_INT', 'DOUBLE_PRECISION', 'Datatype', 'Detach_buffer', 'Distgraphcomm', 'ERRHANDLER_NULL', 'ERRORS_ARE_FATAL', 'ERRORS_RETURN', 'ERR_ACCESS', 'ERR_AMODE', 'ERR_ARG', 'ERR_ASSERT', 'ERR_BAD_FILE', 'ERR_BASE', 'ERR_BUFFER', 'ERR_COMM', 'ERR_CONVERSION', 'ERR_COUNT', 'ERR_DIMS', 'ERR_DISP', 'ERR_DUP_DATAREP', 'ERR_FILE', 'ERR_FILE_EXISTS', 'ERR_FILE_IN_USE', 'ERR_GROUP', 'ERR_INFO', 'ERR_INFO_KEY', 'ERR_INFO_NOKEY', 'ERR_INFO_VALUE', 'ERR_INTERN', 'ERR_IN_STATUS', 'ERR_IO', 'ERR_KEYVAL', 'ERR_LASTCODE', 'ERR_LOCKTYPE', 'ERR_NAME', 'ERR_NOT_SAME', 'ERR_NO_MEM', 'ERR_NO_SPACE', 'ERR_NO_SUCH_FILE', 'ERR_OP', 'ERR_OTHER', 'ERR_PENDING', 'ERR_PORT', 'ERR_QUOTA', 'ERR_RANK', 'ERR_READ_ONLY', 'ERR_REQUEST', 'ERR_RMA_ATTACH', 'ERR_RMA_CONFLICT', 'ERR_RMA_FLAVOR', 'ERR_RMA_RANGE', 'ERR_RMA_SHARED', 'ERR_RMA_SYNC', 'ERR_ROOT', 'ERR_SERVICE', 'ERR_SIZE', 'ERR_SPAWN', 'ERR_TAG', 'ERR_TOPOLOGY', 'ERR_TRUNCATE', 'ERR_TYPE', 'ERR_UNKNOWN', 'ERR_UNSUPPORTED_DATAREP', 'ERR_UNSUPPORTED_OPERATION', 'ERR_WIN', 'Errhandler', 'Exception', 'FILE_NULL', 'FLOAT', 'FLOAT_INT', 'F_BOOL', 'F_COMPLEX', 'F_DOUBLE', 'F_DOUBLE_COMPLEX', 'F_FLOAT', 'F_FLOAT_COMPLEX', 'F_INT', 'File', 'Finalize', 'Free_mem', 'GRAPH', 'GROUP_EMPTY', 'GROUP_NULL', 'Get_address', 'Get_error_class', 'Get_error_string', 'Get_library_version', 'Get_processor_name', 'Get_version', 'Graphcomm', 'Grequest', 'Group', 'HOST', 'IDENT', 'INFO_ENV', 'INFO_NULL', 'INT', 'INT16_T', 'INT32_T', 'INT64_T', 'INT8_T', 'INTEGER', 'INTEGER1', 'INTEGER16', 'INTEGER2', 'INTEGER4', 'INTEGER8', 'INT_INT', 'IN_PLACE', 'IO', 'Info', 'Init', 'Init_thread', 'Intercomm', 'Intracomm', 'Is_finalized', 'Is_initialized', 'Is_thread_main', 'KEYVAL_INVALID', 'LAND', 'LASTUSEDCODE', 'LB', 'LOCK_EXCLUSIVE', 'LOCK_SHARED', 'LOGICAL', 'LOGICAL1', 'LOGICAL2', 'LOGICAL4', 'LOGICAL8', 'LONG', 'LONG_DOUBLE', 'LONG_DOUBLE_INT', 'LONG_INT', 'LONG_LONG', 'LOR', 'LXOR', 'Lookup_name', 'MAX', 'MAXLOC', 'MAX_DATAREP_STRING', 'MAX_ERROR_STRING', 'MAX_INFO_KEY', 'MAX_INFO_VAL', 'MAX_LIBRARY_VERSION_STRING', 'MAX_OBJECT_NAME', 'MAX_PORT_NAME', 'MAX_PROCESSOR_NAME', 'MESSAGE_NO_PROC', 'MESSAGE_NULL', 'MIN', 'MINLOC', 'MODE_APPEND', 'MODE_CREATE', 'MODE_DELETE_ON_CLOSE', 'MODE_EXCL', 'MODE_NOCHECK', 'MODE_NOPRECEDE', 'MODE_NOPUT', 'MODE_NOSTORE', 'MODE_NOSUCCEED', 'MODE_RDONLY', 'MODE_RDWR', 'MODE_SEQUENTIAL', 'MODE_UNIQUE_OPEN', 'MODE_WRONLY', 'Message', 'NO_OP', 'OFFSET', 'OP_NULL', 'ORDER_C', 'ORDER_F', 'ORDER_FORTRAN', 'Op', 'Open_port', 'PACKED', 'PROC_NULL', 'PROD', 'Pcontrol', 'Prequest', 'Publish_name', 'Query_thread', 'REAL', 'REAL16', 'REAL2', 'REAL4', 'REAL8', 'REPLACE', 'REQUEST_NULL', 'ROOT', 'Register_datarep', 'Request', 'SEEK_CUR', 'SEEK_END', 'SEEK_SET', 'SHORT', 'SHORT_INT', 'SIGNED_CHAR', 'SIGNED_INT', 'SIGNED_LONG', 'SIGNED_LONG_LONG', 'SIGNED_SHORT', 'SIMILAR', 'SINT16_T', 'SINT32_T', 'SINT64_T', 'SINT8_T', 'SUBVERSION', 'SUCCESS', 'SUM', 'Status', 'TAG_UB', 'THREAD_FUNNELED', 'THREAD_MULTIPLE', 'THREAD_SERIALIZED', 'THREAD_SINGLE', 'TWOINT', 'TYPECLASS_COMPLEX', 'TYPECLASS_INTEGER', 'TYPECLASS_REAL', 'Topocomm', 'UB', 'UINT16_T', 'UINT32_T', 'UINT64_T', 'UINT8_T', 'UNDEFINED', 'UNEQUAL', 'UNIVERSE_SIZE', 'UNSIGNED', 'UNSIGNED_CHAR', 'UNSIGNED_INT', 'UNSIGNED_LONG', 'UNSIGNED_LONG_LONG', 'UNSIGNED_SHORT', 'UNWEIGHTED', 'Unpublish_name', 'VERSION', 'WCHAR', 'WEIGHTS_EMPTY', 'WIN_BASE', 'WIN_CREATE_FLAVOR', 'WIN_DISP_UNIT', 'WIN_FLAVOR', 'WIN_FLAVOR_ALLOCATE', 'WIN_FLAVOR_CREATE', 'WIN_FLAVOR_DYNAMIC', 'WIN_FLAVOR_SHARED', 'WIN_MODEL', 'WIN_NULL', 'WIN_SEPARATE', 'WIN_SIZE', 'WIN_UNIFIED', 'WTIME_IS_GLOBAL', 'Win', 'Wtick', 'Wtime', '__builtins__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__pyx_capi__', '__spec__', '_addressof', '_handleof', '_keyval_registry', '_lock_table', '_set_abort_status', '_sizeof', '_typecode', '_typedict', '_typedict_c', '_typedict_f', 'get_vendor', 'memory', 'pickle']
+
+</code></pre></div></div>
+
+<p>这样子就说明安装成功了.</p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://127.0.0.1:4000/tags/#skills" class="page__taxonomy-item" rel="tag">skills</a>
+    
+    </span>
+  </p>
+
+
+
+
+      </footer>
+
+      
+
+<section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=http://127.0.0.1:4000/posts/2019/03/install-mpi4py/" class="btn btn--twitter" title="Share on Twitter"><i class="fab fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:4000/posts/2019/03/install-mpi4py/" class="btn btn--facebook" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://127.0.0.1:4000/posts/2019/03/install-mpi4py/" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+      
+
+
+  <nav class="pagination">
+    
+      <a href="http://127.0.0.1:4000/2019-03-13-NVIDIA-SMI-has-failed-because-it-couldn't-communicate/" class="pagination--pager" title="
+">Previous</a>
+    
+    
+      <a href="http://127.0.0.1:4000/posts/2019/04/plot-performance-figures-in-rl/" class="pagination--pager" title="How to plot performance figures in reinforcement learning papers
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      
+        <h4 class="page__related-title">You May Also Enjoy</h4>
+      
+      <div class="grid__wrapper">
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://127.0.0.1:4000/posts/2019/12/skills-on-ubuntu/" rel="permalink">配置ubuntu系统常用技能
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+  
+	  less than 1 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2019-12-25T00:00:00-08:00">December 25, 2019</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><h2 id="配置静态ipv6地址">配置静态ipv6地址</h2>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://127.0.0.1:4000/posts/2019/04/plot-performance-figures-in-rl/" rel="permalink">How to plot performance figures in reinforcement learning papers
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+  
+	  less than 1 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2019-04-19T00:00:00-07:00">April 19, 2019</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><h1 id="如何绘制出强化学习论文里面的曲线图">如何绘制出强化学习论文里面的曲线图</h1>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://127.0.0.1:4000/2019-03-13-NVIDIA-SMI-has-failed-because-it-couldn't-communicate/" rel="permalink">
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+  
+	  1 minute read
+	
+</p>
+    
+
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://127.0.0.1:4000/posts/2019/02/how-to-install-cuda-on-ubunutu-1804/" rel="permalink">How to install cuda on ubuntu 1804
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+  
+	  1 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2019-02-20T00:00:00-08:00">February 20, 2019</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><h2 id="深度学习环境的安装-ubuntu-1804">深度学习环境的安装 ubuntu 1804</h2>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+<a href="/sitemap/">Sitemap</a>
+<!-- end custom footer snippets -->
+
+        
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+    
+    
+      <li><a href="http://github.com/sweetice"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    <li><a href="http://127.0.0.1:4000/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 Qiang He (何强). Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>, a fork of <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    <script src="http://127.0.0.1:4000/assets/js/main.min.js"></script>
+
+
+
+
+  <!-- start custom analytics snippet -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-185353848-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-185353848-1');
+</script>
+
+<!-- end custom analytics snippet -->
+
+
+
+
+
+
+
+  </body>
+</html>
+

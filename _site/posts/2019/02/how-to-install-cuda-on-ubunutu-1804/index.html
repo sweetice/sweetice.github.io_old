@@ -1,0 +1,783 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+
+<meta charset="utf-8">
+
+
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>How to install cuda on ubuntu 1804 - Qiang He’s Homepage (CASIA)</title>
+
+
+
+
+
+
+
+<meta property="og:locale" content="en-US">
+<meta property="og:site_name" content="Qiang He's Homepage (CASIA)">
+<meta property="og:title" content="How to install cuda on ubuntu 1804">
+
+
+  <link rel="canonical" href="http://127.0.0.1:4000/posts/2019/02/how-to-install-cuda-on-ubunutu-1804/">
+  <meta property="og:url" content="http://127.0.0.1:4000/posts/2019/02/how-to-install-cuda-on-ubunutu-1804/">
+
+
+
+  <meta property="og:description" content="深度学习环境的安装 ubuntu 1804">
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2019-02-20T00:00:00-08:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Qiang He (何强)",
+      "url" : "http://127.0.0.1:4000",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="google-site-verification=6CU-DoIp0FraaNmQsqgvxCw5swk1BHoouEqmFRoeWNc" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://127.0.0.1:4000/feed.xml" type="application/atom+xml" rel="alternate" title="Qiang He's Homepage (CASIA) Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://127.0.0.1:4000/assets/css/main.css">
+
+<meta http-equiv="cleartype" content="on">
+    
+
+<!-- start custom head snippets -->
+<meta name="google-site-verification" content="r78CFkv8ENH5zPM3DqSoC5yKA2XG3eGnIypcz7l-dIg" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-185353848-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-185353848-1');
+</script>
+<link rel="apple-touch-icon" sizes="57x57" href="http://127.0.0.1:4000/images/apple-touch-icon-57x57.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="60x60" href="http://127.0.0.1:4000/images/apple-touch-icon-60x60.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="72x72" href="http://127.0.0.1:4000/images/apple-touch-icon-72x72.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="76x76" href="http://127.0.0.1:4000/images/apple-touch-icon-76x76.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="114x114" href="http://127.0.0.1:4000/images/apple-touch-icon-114x114.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="120x120" href="http://127.0.0.1:4000/images/apple-touch-icon-120x120.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="144x144" href="http://127.0.0.1:4000/images/apple-touch-icon-144x144.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="152x152" href="http://127.0.0.1:4000/images/apple-touch-icon-152x152.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="180x180" href="http://127.0.0.1:4000/images/apple-touch-icon-180x180.png?v=M44lzPylqQ">
+<link rel="icon" type="image/png" href="http://127.0.0.1:4000/images/favicon-32x32.png?v=M44lzPylqQ" sizes="32x32">
+<link rel="icon" type="image/png" href="http://127.0.0.1:4000/images/android-chrome-192x192.png?v=M44lzPylqQ" sizes="192x192">
+<link rel="icon" type="image/png" href="http://127.0.0.1:4000/images/favicon-96x96.png?v=M44lzPylqQ" sizes="96x96">
+<link rel="icon" type="image/png" href="http://127.0.0.1:4000/images/favicon-16x16.png?v=M44lzPylqQ" sizes="16x16">
+<link rel="manifest" href="http://127.0.0.1:4000/images/manifest.json?v=M44lzPylqQ">
+<link rel="mask-icon" href="http://127.0.0.1:4000/images/safari-pinned-tab.svg?v=M44lzPylqQ" color="#000000">
+<link rel="shortcut icon" href="/images/favicon.ico?v=M44lzPylqQ">
+<meta name="msapplication-TileColor" content="#000000">
+<meta name="msapplication-TileImage" content="http://127.0.0.1:4000/images/mstile-144x144.png?v=M44lzPylqQ">
+<meta name="msapplication-config" content="http://127.0.0.1:4000/images/browserconfig.xml?v=M44lzPylqQ">
+<meta name="theme-color" content="#ffffff">
+<link rel="stylesheet" href="http://127.0.0.1:4000/assets/css/academicons.css"/>
+
+<script type="text/x-mathjax-config"> MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } }); </script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+<!-- end custom head snippets -->
+
+    <meta name="google-site-verification" content="r78CFkv8ENH5zPM3DqSoC5yKA2XG3eGnIypcz7l-dIg" />
+  </head>
+
+  <body>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><div class="navicon"></div></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg"><a href="http://127.0.0.1:4000/">Qiang He's Homepage (CASIA)</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://127.0.0.1:4000/publications/">Publications</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://127.0.0.1:4000/talks/">Talks</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://127.0.0.1:4000/year-archive/">Blog Posts</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://127.0.0.1:4000/cv/">CV</a></li>
+          
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+
+
+<div id="main" role="main">
+  
+
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  <div class="author__avatar">
+    
+    	<img src="http://127.0.0.1:4000/images/qianghe2017.jpg" class="author__avatar" alt="Qiang He (何强)">
+    
+  </div>
+
+  <div class="author__content">
+    <h3 class="author__name">Qiang He (何强)</h3>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li><i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> Beijing, China</li>
+      
+      
+      
+      
+      
+       
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        <li><a href="https://github.com/sweetice"><i class="fab fa-fw fa-github" aria-hidden="true"></i> Github</a></li>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        <li><a href="https://scholar.google.com.hk/citations?user=l6Y2ZDYAAAAJ&hl=zh-CN"><i class="fas fa-fw fa-graduation-cap"></i> Google Scholar</a></li>
+      
+      
+      
+      
+      
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="How to install cuda on ubuntu 1804">
+    <meta itemprop="description" content="深度学习环境的安装 ubuntu 1804">
+    <meta itemprop="datePublished" content="February 20, 2019">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">How to install cuda on ubuntu 1804
+</h1>
+          
+            <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+  
+	  1 minute read
+	
+</p>
+          
+        
+        
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2019-02-20T00:00:00-08:00">February 20, 2019</time></p>
+        
+        
+             
+        
+    
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        <h2 id="深度学习环境的安装-ubuntu-1804">深度学习环境的安装 ubuntu 1804</h2>
+
+<ul>
+  <li>1.查看是否支持CUDA，清理掉原来的驱动</li>
+</ul>
+
+<p>使用如下命令：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lspci | grep -i nvidia
+</code></pre></div></div>
+
+<p>我得到的输出是：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>01:00.0 VGA compatible controller: NVIDIA Corporation GP104 [GeForce GTX 1070 Ti] (rev a1)
+01:00.1 Audio device: NVIDIA Corporation GP104 High Definition Audio Controller (rev a1)
+</code></pre></div></div>
+
+<p>说明我的显卡是1070Ti。</p>
+
+<p>再清理掉原来的驱动</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get autoremove --purge nvidia*
+</code></pre></div></div>
+
+<ul>
+  <li>2.禁用nouveau
+在终端运行</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ lsmod | grep nouveau
+</code></pre></div></div>
+
+<p>如果有输出，说明nouveau正在运行，需要手动禁掉nouveau。</p>
+
+<p>使用</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo vim /etc/modprobe.d/blacklist-nouveau.conf
+</code></pre></div></div>
+
+<p>在文件内写入：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>blacklist nouveau 
+options nouveau modeset=0
+</code></pre></div></div>
+
+<p>执行</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo update-initramfs -u
+</code></pre></div></div>
+
+<p>确定是否禁用成功</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ lsmod | grep nouveau
+</code></pre></div></div>
+
+<ul>
+  <li>3.安装驱动</li>
+</ul>
+
+<p>此处建议使用ubuntu自带的software &amp; updates安装驱动。</p>
+<ul>
+  <li>1 打开Software &amp; Updates</li>
+  <li>2 点击Additional Drivers</li>
+  <li>3 选用 Using NVIDIA driver metapackage from nvidia-diver-390(proprietary, tested)</li>
+</ul>
+
+<p>或者考虑一下方式:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo add-apt-repository ppa:graphics-drivers/ppa      //添加ppa库到系统中
+sudo apt update         //  更新
+ 
+sudo ubuntu-drivers devices // 显示可以安装的nvidia驱动
+ 
+ 
+sudo apt install nvidia-xxx        //  xxx  代表你想安装的nVidia驱动的版本号
+</code></pre></div></div>
+<p><img src="https://github.com/sweetice/sweetice.github.io/blob/master/figures/software%20and%20updates.png" alt="Software and Updates" /></p>
+
+<p>如果没有成功，那么就去<a href="https://www.nvidia.cn/Download/index.aspx?lang=cn">官网</a>选择对应的版本安装。</p>
+
+<p><img src="https://github.com/sweetice/sweetice.github.io/blob/master/figures/nvidia-driver.png" alt="nvidia-driver" /></p>
+
+<p>下载好之后，使用alt+ctrl+f1切换到tty1模式去，从ubuntu1804开始，可以不禁用lightdm了。</p>
+
+<p>使用如下的命令安装</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo bash ./NVIDIA-Linux-x86_64-410.93.run 
+
+</code></pre></div></div>
+<p>安装完成之后，切换回图形界面。
+接下来。</p>
+
+<ul>
+  <li>4.安装cuda</li>
+</ul>
+
+<p>上<a href="https://developer.nvidia.com/cuda-90-download-archive">官网</a>下载cuda9.0的包。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://developer.nvidia.com/cuda-90-download-archive
+</code></pre></div></div>
+
+<p>之后，关闭掉图形界面（方法同上），进入下载目录，执行如下命令：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo ./cuda_9.0_linux.run --verbose -silent --toolkit --override 
+</code></pre></div></div>
+<p><strong>一定要加入后面的参数</strong></p>
+
+<p>这样子不用经过繁琐的选择，能够直接安装上cuda。</p>
+
+<p>现在你还缺少了一些库，安装他们</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo apt-get install freeglut3-dev build-essential libx11-dev libxmu-dev libxi-dev libgl1-mesa-glx libglu1-mesa libglu1-mesa-dev
+</code></pre></div></div>
+
+<p>快要成功了，接下来添加一下环境变量</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd ~
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo gedit ./bashrc
+</code></pre></div></div>
+
+<p>在文件的最后，加上：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export PATH="$PATH:/usr/local/cuda-9.0/bin"
+</code></pre></div></div>
+
+<p>然后退出，至此cuda安装完成。</p>
+
+<ul>
+  <li>5.安装cudNN</li>
+</ul>
+
+<ol>
+  <li>去<a href="https://developer.nvidia.com/rdp/cudnn-download">官网</a>下载cudnn（注意这里我们下载.tgz版本）</li>
+  <li>下载好之后解压到本地</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$sudo tar -xzvf cudnn-9.0-linux-x64-v7.5.0.56.tgz 
+</code></pre></div></div>
+
+<ol>
+  <li>将文件拷贝至cuda的目录中
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo cp cuda/include/cudnn.h /usr/local/cuda/include
+sudo cp cuda/lib64/libcudnn* /usr/local/cuda/lib64
+</code></pre></div>    </div>
+  </li>
+  <li>配置相应的环境变量</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gedit .bashrc
+</code></pre></div></div>
+<p>把这个加在最后一行：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-9.0/lib64/
+</code></pre></div></div>
+<ul>
+  <li>6.测试</li>
+</ul>
+
+<p>使用如下代码测试</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import torch
+torch.cuda.is_available()
+</code></pre></div></div>
+
+<p>如果结果显示True，那么就可以使用了。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import tensorflow as tf
+a = tf.constant([1.0,2.0,3.0],shape=[3],name='a')
+b = tf.constant([1.0,2.0,3.0],shape=[3],name='b')
+with tf.device('/gpu:1'):
+    c = a + b
+sess = tf.Session()
+sess.run(tf.global_variables_initializer())
+print(sess.run(c))
+</code></pre></div></div>
+<p><img src="https://github.com/sweetice/sweetice.github.io/blob/master/figures/cuda_is_available.png" alt="cuda可以用了" /></p>
+
+<h2 id="一些你可能用到的命令">一些你可能用到的命令</h2>
+
+<p>查看占用apt进程的命令</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps aux | grep -i apt
+</code></pre></div></div>
+
+<p>杀死这种命令</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kill -9 id
+</code></pre></div></div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://127.0.0.1:4000/tags/#skills" class="page__taxonomy-item" rel="tag">skills</a>
+    
+    </span>
+  </p>
+
+
+
+
+      </footer>
+
+      
+
+<section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=http://127.0.0.1:4000/posts/2019/02/how-to-install-cuda-on-ubunutu-1804/" class="btn btn--twitter" title="Share on Twitter"><i class="fab fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:4000/posts/2019/02/how-to-install-cuda-on-ubunutu-1804/" class="btn btn--facebook" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://127.0.0.1:4000/posts/2019/02/how-to-install-cuda-on-ubunutu-1804/" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+      
+
+
+  <nav class="pagination">
+    
+      <a href="http://127.0.0.1:4000/posts/2019/01/compute-gradients-of-gradients/" class="pagination--pager" title="Computing the gradients of gradients with pytorch
+">Previous</a>
+    
+    
+      <a href="http://127.0.0.1:4000/2019-03-13-NVIDIA-SMI-has-failed-because-it-couldn't-communicate/" class="pagination--pager" title="
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      
+        <h4 class="page__related-title">You May Also Enjoy</h4>
+      
+      <div class="grid__wrapper">
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://127.0.0.1:4000/posts/2019/12/skills-on-ubuntu/" rel="permalink">配置ubuntu系统常用技能
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+  
+	  less than 1 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2019-12-25T00:00:00-08:00">December 25, 2019</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><h2 id="配置静态ipv6地址">配置静态ipv6地址</h2>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://127.0.0.1:4000/posts/2019/04/plot-performance-figures-in-rl/" rel="permalink">How to plot performance figures in reinforcement learning papers
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+  
+	  less than 1 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2019-04-19T00:00:00-07:00">April 19, 2019</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><h1 id="如何绘制出强化学习论文里面的曲线图">如何绘制出强化学习论文里面的曲线图</h1>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://127.0.0.1:4000/posts/2019/03/install-mpi4py/" rel="permalink">How to installation mpi4py in your ubuntu
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+  
+	  3 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2019-03-18T00:00:00-07:00">March 18, 2019</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><h2 id="how-to-install-mpi4py-in-your-ubuntu-computer">How to install mpi4py in your ubuntu computer</h2>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://127.0.0.1:4000/2019-03-13-NVIDIA-SMI-has-failed-because-it-couldn't-communicate/" rel="permalink">
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+  
+	  1 minute read
+	
+</p>
+    
+
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+<a href="/sitemap/">Sitemap</a>
+<!-- end custom footer snippets -->
+
+        
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+    
+    
+      <li><a href="http://github.com/sweetice"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    <li><a href="http://127.0.0.1:4000/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 Qiang He (何强). Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>, a fork of <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    <script src="http://127.0.0.1:4000/assets/js/main.min.js"></script>
+
+
+
+
+  <!-- start custom analytics snippet -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-185353848-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-185353848-1');
+</script>
+
+<!-- end custom analytics snippet -->
+
+
+
+
+
+
+
+  </body>
+</html>
+
