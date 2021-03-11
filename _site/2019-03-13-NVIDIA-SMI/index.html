@@ -19,7 +19,7 @@
 
 
 
-<title>Talks and presentations - Qiang He’s Homepage (CASIA)</title>
+<title>Qiang He's Homepage (CASIA)</title>
 
 
 
@@ -29,13 +29,15 @@
 
 <meta property="og:locale" content="en-US">
 <meta property="og:site_name" content="Qiang He's Homepage (CASIA)">
-<meta property="og:title" content="Talks and presentations">
+<meta property="og:title" content="Qiang He’s Homepage (CASIA)">
 
 
-  <link rel="canonical" href="http://sweetice.github.io/talks/">
-  <meta property="og:url" content="http://sweetice.github.io/talks/">
+  <link rel="canonical" href="http://sweetice.github.io/2019-03-13-NVIDIA-SMI/">
+  <meta property="og:url" content="http://sweetice.github.io/2019-03-13-NVIDIA-SMI/">
 
 
+
+  <meta property="og:description" content="Homepage">
 
 
 
@@ -182,6 +184,8 @@
 
 
 
+
+
 <div id="main" role="main">
   
 
@@ -253,111 +257,363 @@
   </div>
 
 
-  <div class="archive">
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
     
-      <h1 class="page__title">Talks and presentations</h1>
+    <meta itemprop="description" content="">
     
     
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          
+          
+            <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
 
 
   
+	  1 minute read
+	
+</p>
+          
+        
+        
+        
+        
+             
+        
+    
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        <p>#　NVIDIA-SMI has failed because it couldn’t communicate with the NVIDIA driver. Make sure that the latest NVIDIA driver is installed and running</p>
+
+<p>#＃ 问题描述：</p>
+
+<p>某次使用电脑之后, 打开电脑之后输入nvidia-smi 提示</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NVIDIA-SMI has failed because it couldn't communicate with the NVIDIA driver. Make sure that the latest NVIDIA driver is installed and running
+</code></pre></div></div>
+
+<p>##　问题原因
+这常常是因为用户在程序运行时强行关闭电脑，或者电脑断电而引起的．</p>
+
+<h2 id="解决方案">解决方案</h2>
+
+<p>大致就是重装一下驱动就可以</p>
+
+<ul>
+  <li>１. 卸载原有驱动
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get autoremove --purge nvidia*
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <ol>
+      <li>增加ppa源</li>
+    </ol>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo add-apt-repository ppa:graphics-drivers/ppa
+sudo apt update
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <ol>
+      <li>检测显卡版本及推荐的驱动</li>
+    </ol>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ubuntu-drivers devices
+</code></pre></div></div>
+
+<p>结果显示</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>== /sys/devices/pci0000:00/0000:00:01.0/0000:01:00.0 ==
+modalias : pci:v000010DEd00001B82sv00001458sd00003794bc03sc00i00
+vendor   : NVIDIA Corporation
+model    : GP104 [GeForce GTX 1070 Ti]
+driver   : nvidia-driver-390 - distro non-free recommended
+driver   : xserver-xorg-video-nouveau - distro free builtin
+
+</code></pre></div></div>
+<p>说明我这里应该去安装390的驱动</p>
+
+<ul>
+  <li>
+    <ol>
+      <li>重装驱动</li>
+    </ol>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install nvidia-driver-390
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <ol>
+      <li>重启
+这是最重要的一步,如果你不重启,那么重装之后立即nvidia-smi是会发现现在还是没有办法使用的,重启之后就好了</li>
+    </ol>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nvidia-smi
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+-----------------------------------------------------------------------------+
+| NVIDIA-SMI 390.116                Driver Version: 390.116                   |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|===============================+======================+======================|
+|   0  GeForce GTX 107...  Off  | 00000000:01:00.0 Off |                  N/A |
+|  0%   55C    P2    40W / 180W |   1046MiB /  8119MiB |     19%      Default |
++-------------------------------+----------------------+----------------------+
+
++-----------------------------------------------------------------------------+
+| Processes:                                                       GPU Memory |
+|  GPU       PID   Type   Process name                             Usage      |
+|=============================================================================|
+|    0      1401      G   /usr/lib/xorg/Xorg                           249MiB |
+|    0      1573      G   /usr/bin/gnome-shell                         195MiB |
+|    0      2509      C   /home/mirror/anaconda3/bin/python            533MiB |
+|    0      2562      G   ...quest-channel-token=9028700102029312797    64MiB |
++-----------------------------------------------------------------------------+
+</code></pre></div></div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+
+
+      </footer>
+
+      
+
+<section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=http://sweetice.github.io/2019-03-13-NVIDIA-SMI/" class="btn btn--twitter" title="Share on Twitter"><i class="fab fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http://sweetice.github.io/2019-03-13-NVIDIA-SMI/" class="btn btn--facebook" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://sweetice.github.io/2019-03-13-NVIDIA-SMI/" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+      
+
+
+  <nav class="pagination">
+    
+      <a href="http://sweetice.github.io/posts/2019/02/how-to-install-cuda-on-ubunutu-1804/" class="pagination--pager" title="How to install cuda on ubuntu 1804
+">Previous</a>
+    
+    
+      <a href="http://sweetice.github.io/posts/2019/03/install-mpi4py/" class="pagination--pager" title="How to installation mpi4py in your ubuntu
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      
+        <h4 class="page__related-title">You May Also Enjoy</h4>
+      
+      <div class="grid__wrapper">
+        
+          
 
 
 
 
 
-<div class="list__item">
+<div class="grid__item">
   <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
     
+
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="http://sweetice.github.io/talks/2018-12-25-talk-3" rel="permalink">Hierarchical Macro Strategy Model for MOBA Game
+        <a href="http://sweetice.github.io/posts/2019/12/skills-on-ubuntu/" rel="permalink">配置ubuntu系统常用技能
 </a>
       
     </h2>
     
-    <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> December 25, 2018</p>
-    <p class="archive__item-excerpt" itemprop="description">Talk, Institute of Automation, Chinese Academy of Sciences,  Haidian, Beijing 
-    <p class="archive__item-excerpt" itemprop="description"><p>This is a description of your talk, which is a markdown files that can be all markdown-ified like any other post. Yay markdown!</p>
-</p>
-  </article>
-</div>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
 
 
   
+	  less than 1 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2019-12-25T00:00:00-08:00">December 25, 2019</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><h2 id="配置静态ipv6地址">配置静态ipv6地址</h2>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
 
 
 
 
 
-<div class="list__item">
+<div class="grid__item">
   <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
     
+
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="http://sweetice.github.io/talks/2018-10-30-talk-2" rel="permalink">Episodic Curiosity Through Reachability
+        <a href="http://sweetice.github.io/posts/2019/04/plot-performance-figures-in-rl/" rel="permalink">How to plot performance figures in reinforcement learning papers
 </a>
       
     </h2>
     
-    <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> October 30, 2018</p>
-    <p class="archive__item-excerpt" itemprop="description">Talk, Institute of Automation, Chinese Academy of Sciences,  Haidian, Beijing 
-    <p class="archive__item-excerpt" itemprop="description"><p>This is a description of your tutorial, note the different field in type. This is a markdown files that can be all markdown-ified like any other post. Yay markdown!</p>
-</p>
-  </article>
-</div>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
 
 
   
+	  less than 1 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2019-04-19T00:00:00-07:00">April 19, 2019</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><h1 id="如何绘制出强化学习论文里面的曲线图">如何绘制出强化学习论文里面的曲线图</h1>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
 
 
 
 
 
-<div class="list__item">
+<div class="grid__item">
   <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
     
+
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="http://sweetice.github.io/talks/2018-08-31-talk-1" rel="permalink">Multi-agent Reinforcement Learning That Matters
+        <a href="http://sweetice.github.io/posts/2019/03/install-mpi4py/" rel="permalink">How to installation mpi4py in your ubuntu
 </a>
       
     </h2>
     
-    <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> August 31, 2018</p>
-    <p class="archive__item-excerpt" itemprop="description">Talk, Institute of Automation, Chinese Academy of Sciences,  Haidian, Beijing 
-    <p class="archive__item-excerpt" itemprop="description"><p>This is a description of your talk, which is a markdown files that can be all markdown-ified like any other post. Yay markdown!</p>
-</p>
-  </article>
-</div>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
 
 
   
+	  3 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2019-03-18T00:00:00-07:00">March 18, 2019</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><h2 id="how-to-install-mpi4py-in-your-ubuntu-computer">How to install mpi4py in your ubuntu computer</h2>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
 
 
 
 
 
-<div class="list__item">
+<div class="grid__item">
   <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
     
+
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="http://sweetice.github.io/talks/2014-03-01-talk-4" rel="permalink">Why Deep Policy Gradient Algorithms Work?
+        <a href="http://sweetice.github.io/posts/2019/02/how-to-install-cuda-on-ubunutu-1804/" rel="permalink">How to install cuda on ubuntu 1804
 </a>
       
     </h2>
     
-    <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> March 01, 2014</p>
-    <p class="archive__item-excerpt" itemprop="description">Invited Talk, Institute of Automation, Chinese Academy of Sciences,  Haidian, Beijing 
-    <p class="archive__item-excerpt" itemprop="description"><p>This is a description of your conference proceedings talk, note the different field in type. You can put anything in this field.</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+  
+	  1 minute read
+	
 </p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2019-02-20T00:00:00-08:00">February 20, 2019</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><h2 id="深度学习环境的安装-ubuntu-1804">深度学习环境的安装 ubuntu 1804</h2>
+
+</p>
+    
+    
+    
+
   </article>
 </div>
 
-
-
-  </div>
+        
+      </div>
+    </div>
+  
 </div>
 
 

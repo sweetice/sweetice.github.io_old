@@ -11,7 +11,7 @@ title                    : "Qiang He's Homepage (CASIA)"
 title_separator          : "-"
 name                     : &name "Qiang He (何强)"
 description              : &description "Homepage"
-url                      : http://sweetice.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io" https://qhe97.github.io http://localhost:4000
+url                      : https://sweetice.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io" https://qhe97.github.io http://localhost:4000
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "sweetice/sweetice.github.io"
 teaser                   :  # filename of teaser fallback teaser image placed in /images/, .e.g. "500x300.png"
