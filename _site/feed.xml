@@ -1,4 +1,320 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://sweetice.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="http://sweetice.github.io/" rel="alternate" type="text/html" /><updated>2021-03-11T06:44:49-08:00</updated><id>http://sweetice.github.io/feed.xml</id><title type="html">Qiang He’s Homepage (CASIA)</title><subtitle>Homepage</subtitle><author><name>Qiang He (何强)</name></author><entry><title type="html">配置ubuntu系统常用技能</title><link href="http://sweetice.github.io/posts/2019/12/skills-on-ubuntu/" rel="alternate" type="text/html" title="配置ubuntu系统常用技能" /><published>2019-12-25T00:00:00-08:00</published><updated>2019-12-25T00:00:00-08:00</updated><id>http://sweetice.github.io/posts/2019/12/Config_static_ipv6</id><content type="html" xml:base="http://sweetice.github.io/posts/2019/12/skills-on-ubuntu/">&lt;h2 id=&quot;配置静态ipv6地址&quot;&gt;配置静态ipv6地址&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://sweetice.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://sweetice.github.io/" rel="alternate" type="text/html" /><updated>2021-03-11T17:32:25-08:00</updated><id>https://sweetice.github.io/feed.xml</id><title type="html">Qiang He’s Homepage (CASIA)</title><subtitle>Homepage</subtitle><author><name>Qiang He (何强)</name></author><entry><title type="html">Functional Gradient Descent</title><link href="https://sweetice.github.io/posts/2021/03/functional-gradient-descent/" rel="alternate" type="text/html" title="Functional Gradient Descent" /><published>2021-03-12T00:00:00-08:00</published><updated>2021-03-12T00:00:00-08:00</updated><id>https://sweetice.github.io/posts/2021/03/functional_gradient_descent</id><content type="html" xml:base="https://sweetice.github.io/posts/2021/03/functional-gradient-descent/">&lt;p&gt;Claim: This is a backup of  &lt;a href=&quot;https://simple-complexities.github.io/optimization/functional/gradient/descent/2020/03/04/functional-gradient-descent.html&quot;&gt;this post&lt;/a&gt;!&lt;/p&gt;
+
+&lt;p&gt;The content in this post has been adapted from &lt;a href=&quot;http://www.cs.cmu.edu/~16831-f12/notes/F12/16831_lecture21_danielsm.pdf&quot;&gt;Functional Gradient Descent - Part 1&lt;/a&gt; and &lt;a href=&quot;http://www.cs.cmu.edu/~16831-f14/notes/F10/16831_lecture24_varunnr/16831_lectureNov11.vramakri.pdf&quot;&gt;Part 2&lt;/a&gt;.
+Functional Gradient Descent was introduced in the NIPS publication &lt;a href=&quot;https://papers.nips.cc/paper/1766-boosting-algorithms-as-gradient-descent.pdf&quot;&gt;Boosting Algorithms as Gradient Descent&lt;/a&gt; by Llew Mason, Jonathan Baxter, Peter Bartlett and Marcus Frean in the year 2000.&lt;/p&gt;
+
+&lt;p&gt;We are all familiar with gradient descent for linear functions \(f(x) = w^Tx\).&lt;br /&gt;
+Once we define a loss \(L\), gradient descent does the following update steps (\(\eta\) is a parameter called the learning rate.):
+\[
+    w \rightarrow w - \eta \nabla L(w)
+\]
+where we move around in the space of weights.
+An example of a loss \(L\) is:
+\[
+    L(w) = \sum_{i=1}^n(y_i - w^Tx_i)^2 + \lambda\lVert w \rVert ^2
+\]
+where the first term (the ‘L2’ term) measures how close \(f(x)\) is to \(y\), while the second term (the ‘regularization’ term) accounts for the ‘complexity’ of the learned function \(f\).&lt;/p&gt;
+
+&lt;p&gt;Suppose we wanted to extend \(L\) to beyond linear functions \(f\). We want to minimize something like:
+\[
+    L(f) = \sum_{i=1}^n(y_i - f(x_i))^2 + \lambda\lVert f \rVert ^2
+\]
+where \(\lVert f \rVert ^2\) again serves as a regularization term, and we have updates of the form:
+\[
+    f \rightarrow f - \eta \nabla L(f)
+\]
+where we move around in the space of functions, not weights!&lt;/p&gt;
+
+&lt;p&gt;Turns out, this is completely possible! And goes by the name of ‘functional’ gradient descent, or gradient descent in function space.&lt;/p&gt;
+
+&lt;p&gt;A question that one may have is: why do this in the first place? Every function can be parametrized, and we can do ‘ordinary’ gradient descent in the space of parameters, instead?&lt;/p&gt;
+
+&lt;p&gt;The answer is: yes, you always can! In general, you can parametrize any function in a number of ways, each parametrization gives rise to different steps (and different functions at each step) in gradient descent.&lt;/p&gt;
+
+&lt;p&gt;The advantage is that some loss functions that are non-convex when parametrized, can be convex in the function space: this means functional gradient descent can actually converge to global minima, when ‘ordinary’ gradient descent could possibly get stuck at local minima or saddle points.&lt;/p&gt;
+
+&lt;p&gt;So, what does functional gradient descent mean?&lt;/p&gt;
+
+&lt;h3 id=&quot;functionals&quot;&gt;Functionals&lt;/h3&gt;
+&lt;p&gt;A functional is a function defined over functions, returning a real value.&lt;br /&gt;
+Examples:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;The evaluation functional
+\[
+  E_x(f) = f(x)
+\]&lt;/li&gt;
+  &lt;li&gt;The sum functional
+\[
+  S_{{x_1, \ldots, x_n}}(f) = \sum_{i = 1}^n f(x_i) dx
+\]&lt;/li&gt;
+  &lt;li&gt;The integration functional
+\[
+  I_{[a, b]}(f) = \int_a^b f(x) dx
+\]&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;It follows that the composition of a function \(g: \mathbb{R} \to \mathbb{R}\) with a functional is also a functional.
+The loss function \(L(f)\) defined above is a functional!&lt;/p&gt;
+
+&lt;h3 id=&quot;reproducing-kernel-hilbert-space&quot;&gt;Reproducing Kernel Hilbert Space&lt;/h3&gt;
+&lt;p&gt;It turns out that it is especially convenient when functions come from a special set, called a reproducing kernel Hilbert space.
+A Hilbert space can be thought of as a vector space, where we have the notion of an inner product between two elements. (This is not the complete definition, but this is what we’ll need).&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;review-kernels&quot;&gt;Review: Kernels&lt;/h4&gt;
+&lt;p&gt;A kernel \(K: X \times X \to \mathbb{R}\) is a function that generalizes dot products:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;Symmetry&lt;/em&gt;: For any \(x_i, x_j \in X\):
+\[
+  K(x_i, x_j) = K(x_j, x_i).
+\]&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Positive Semi-Definiteness&lt;/em&gt;: For any \(x_1, \ldots, x_n \in X\), the matrix \(K_M\) given by 
+\[
+  K_{M_{ij}} = K(x_i, x_j)
+\]
+is positive semi-definite. Note that this implies \(K(x_i, x_j) \geq 0\) always.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;It turns out (Mercer’s condition) that these conditions are equivalent to
+\[
+    K(x_i, x_j) = \phi(x_i) \cdot \phi(x_j)
+\]
+where \(\phi\) is a function that is sometimes called the ‘feature map’. Thus, a kernel can be thought of as the dot product in some feature space (the range of \(\phi\)).
+Similar to the dot product then, the kernel measures similarity between two inputs.&lt;/p&gt;
+
+&lt;p&gt;Examples of kernel functions include:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Linear Kernel: 
+\[
+  K(x_i, x_j) = x_i \cdot x_j 
+\]&lt;/li&gt;
+  &lt;li&gt;Polynomial Kernel (of degree \(d\)): 
+\[
+  K(x_i, x_j) = (x_i \cdot x_j + c)^d 
+\]
+The presence of the \(c\) term allows coefficients of degree less than \(d\) to be accommodated too.&lt;/li&gt;
+  &lt;li&gt;RBF Kernel (of ‘width’ \(\sigma\)): 
+\[
+  K(x_i, x_j) = \exp\left(-\frac{\lVert x_i - x_j \rVert^2}{2\sigma^2}\right)
+\]&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Try to derive what the associated feature map is, for each of these kernels!&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;p&gt; &lt;/p&gt;
+
+&lt;p&gt;We can now define a reproducing kernel Hilbert space or a ‘RKHS’.&lt;br /&gt;
+A &lt;em&gt;reproducing kernel Hilbert space&lt;/em&gt;, obtained on fixing a kernel \(K\), is a space of functions where every function \(f\) is some linear combination of the kernel \(K\) evaluated at some ‘centers’ \(x_{Cf}\):
+\[
+    f(x) = \sum_{i = 1}^n \alpha_{f_i} K(x, x_{Cf_i}) 
+\]
+or, ignoring the argument \(x\):
+\[
+    f = \sum_{i = 1}^n \alpha_{f_i} K(\cdot, x_{Cf_i}) 
+\]
+For a kernel \(K\) will denote the associated reproducing kernel Hilbert space by \(H_K\).&lt;br /&gt;
+From the definition above, every \(f \in H_K\) is completely determined by the coefficients \(\alpha_f\) and the centers \(x_{Cf}\). Note that the number of centers (\(=\) dimension of \(\alpha_f\)) can vary between functions.&lt;/p&gt;
+
+&lt;p&gt;We can now define the inner product (the ‘dot’ product) in \(H_K\) by:
+\[
+    f \cdot g =  \sum_{i = 1}^{n_f} \sum_{j = 1}^{n_g} \alpha_{f_i} \alpha_{g_j} K(x_{Cf_i}, x_{Cg_j}) = \alpha_f K_{fg} \alpha_g
+\]
+where,
+\[
+    K_{{fg}_{ij}} = K(x_{Cf_i}, x_{Cg_j}).
+\]
+This inner product induces the norm \(\lVert \cdot \rVert\):
+\[
+    {\lVert f \rVert}^2 = f \cdot f = \alpha_f K_{ff} \alpha_f \geq 0.
+\]
+Why do we use the term reproducing? This is because we can ‘reproduce’ the value of \(f \in H_K\) at any \(x\) by taking the inner product of \(f\) with the ‘reproducing kernel’ function \(K(x, \cdot) \in H_K\):
+\[
+    f \cdot K(x, \cdot) = f(x).
+\]
+Verify this property!&lt;/p&gt;
+
+&lt;p&gt;So, we’ve seen how to define the inner-product and norm \(\lVert f \rVert\) of any function \(f \in H_K\). But, in order to minimize via gradient descent, we need the definition of a derivative.&lt;/p&gt;
+
+&lt;h3 id=&quot;derivatives-of-functionals&quot;&gt;Derivatives of Functionals&lt;/h3&gt;
+&lt;p&gt;As reviewed in my previous post on &lt;a href=&quot;/optimization/constrained/theory/2020/03/03/optimization-review.html&quot;&gt;optimization theory&lt;/a&gt;, one of the definitions of the derivative \(Df\) of a function \(f: \mathbb{R}^n \rightarrow \mathbb{R}\) is:
+\[
+    \lim_{\lVert h \rVert \rightarrow 0} \frac{\lVert{f(x + h) - (f(x) + Df(x) \cdot h)}\rVert}{\lVert{h}\rVert} = 0
+\]
+where \(Df(x)\) is a size \(n\) row vector, with which the take the dot product of the direction \(h\) with.&lt;/p&gt;
+
+&lt;p&gt;We may not be working in \(\mathbb{R}^n\) anymore, but this definition gives us that the derivative \(DE\) of a functional \(E\) on \(H_K\) must satisfy:
+\[
+    \lim_{\lVert h \rVert \rightarrow 0} \frac{\lVert{E(x + h) - (E(x) + DE(x) \cdot h)}\rVert}{\lVert{h}\rVert} = 0
+\]
+where \(h\) and \(x\) are now functions in \(H_K\), instead of points. This means that \(DE(x)\) is a function, too! (Recall that addition of functions occurs point-wise.)&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;&lt;strong&gt;Example 1:&lt;/strong&gt;
+Let us take the example of the evaluation functional \(E_x(f) = f(x)\) and compute its derivative:
+\[
+    \begin{aligned}
+        E(f + h) &amp;amp;= (f + h)(x)  \newline
+                 &amp;amp;= f(x) + h(x) \newline
+                 &amp;amp;= E(f) + h(x) \newline
+                 &amp;amp;= E(f) + K(x, \cdot) \cdot h \newline
+    \end{aligned}
+\]
+Thus, the derivative \(DE_x(f)\) is independent of \(f\), and is given by:
+\[
+        DE_x(f) = K(x, \cdot).
+\]&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Example 2:&lt;/strong&gt;
+Similarly, following the example of my reference material, the functional \(E(f) = {\lVert f \rVert}^2\) satisfies:
+\[
+    \begin{aligned}
+        E(f + h) &amp;amp;= {\lVert f + h \rVert}^2  \newline
+                 &amp;amp;= {(f + h) \cdot (f + h)} \newline
+                 &amp;amp;= {f \cdot f} + 2 {f \cdot h} + {h \cdot h} \newline
+                 &amp;amp;= E(f) + 2 {f \cdot h} + {h \cdot h} \newline
+    \end{aligned}
+\]
+Thus, the derivative \(DE(f)\) is defined as:
+\[
+        DE(f) = 2f.
+\]
+Note how similar this is to the derivative \(2x\) of the function \(x \to \lvert x \rvert^2\) on real numbers!&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;p&gt; &lt;/p&gt;
+
+&lt;h4 id=&quot;the-chain-rule&quot;&gt;The Chain Rule&lt;/h4&gt;
+&lt;p&gt;Very fortunately, we also have the chain rule!
+As discussed before, if \(E\) is a functional and \(g: \mathbb{R} \to \mathbb{R}\) is differentiable, then \(g(E)\) is also a functional, with derivative:
+\[
+    D(g(E))(f) = g’(E(f)) \ DE(f).
+\]&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;Example 3:&lt;/strong&gt;
+Let us compute the derivative of the loss functional \(L(f) = \sum_{i=1}^n(y_i - f(x_i))^2 + \lambda\lVert f \rVert ^2\) with the chain rule:
+The individual terms in the first sum term is a composition of
+\[
+    g_i(x) = (y_i - x)^2 \text{ and } E_{x_i}.
+\]
+Thus, each of these terms has derivative:
+\[
+    \begin{aligned}
+    D(g_i({x_i}))(f) &amp;amp;= -2 (y_i - E_{x_i}(f)) \cdot DE_{x_i}(f) \newline
+                     &amp;amp;= -2 (y_i - f(x_i)) \cdot K(x_i, \cdot).
+    \end{aligned}
+\]
+The second term has derivative \(2\lambda f\), as derived above.
+Thus, the derivative \(DL(f)\) is given by:
+\[
+    DL(f) = \sum_{i = 1}^n -2 (y_i - f(x_i)) \cdot K(x_i, \cdot) + 2\lambda f.
+\]&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;p&gt; &lt;/p&gt;
+
+&lt;p&gt;There is one last point to note. When we take steps in ‘ordinary’ gradient descent, we move along the negative of the gradient vector because that is the direction along which the dot product with the gradient is minimum. No matter how this vector points! In some sense, we are not restricted to move in any direction. This is because our underlying domain is \(\mathbb{R}^n\).&lt;/p&gt;
+
+&lt;p&gt;In ‘functional’ gradient descent, however, we are restricted to \(H_K\). How can we guarantee that when moving along \(DL(f)\), we do not stray out of \(H_K\)? One way to ensure that is by proving that we always have \(DL(f) \in H_K\). (This was true for our examples above! We have actually implicitly assumed this in our definition, too.) Then, closure of \(H_K\) under addition (and scalar multiplication) ensures that at every iteration, our current function \(f\) is in \(H_K\).&lt;/p&gt;
+
+&lt;p&gt;This is what we will prove, in the next section.&lt;/p&gt;
+
+&lt;p&gt;The &lt;a href=&quot;https://papers.nips.cc/paper/1766-boosting-algorithms-as-gradient-descent.pdf&quot;&gt;Boosting Algorithms as Gradient Descent&lt;/a&gt; paper above, does not use reproducing kernel Hilbert spaces, and actually applies to more general sets of functions. This is why they mention the fact that moving along the gradient is not always possible. Instead, they move along the direction with the least dot product with the gradient, among all directions that keeps them within their domain of functions. With reproducing kernel Hilbert spaces, this is not a problem: we are, fortunately, not restricted to move along the negative of the gradient.&lt;/p&gt;
+
+&lt;h3 id=&quot;h_k-is-closed-under-the-derivative&quot;&gt;\(H_K\) is Closed under the Derivative&lt;/h3&gt;
+&lt;p&gt;If \(E\) is a functional on \(H_K\), and \(f \in H_K\), then we always have:
+\[
+    DE(f) \in H_K.
+\]&lt;/p&gt;
+
+&lt;p&gt;Let us define the derivative \(DE^*(f)\) as a functional:
+\[
+    \lim_{\lVert h \rVert \rightarrow 0} \frac{\lVert{E(f + h) - (E(f) + DE^*(f)(h))}\rVert}{\lVert{h}\rVert} = 0
+\]
+I differentiate between \(DE^*(f)\) (the functional) and \(DE(f)\) (the function).
+We want to show that, in fact:
+\[
+    DE^*(f)(h) = {\langle h, DE(f) \rangle}_K
+\]&lt;/p&gt;
+
+&lt;p&gt;Note that \(DE^*(f)\) is a linear functional!
+Why? Using the definition above (and properties of the norm and limits):&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;\(DE^*(f)(ch) = c \cdot DE^*(f)(h)\) where \(c \in \mathbb{R}\).&lt;/li&gt;
+  &lt;li&gt;\(DE^*(f)(h + g) = DE^*(f)(h) + DE^*(f)(g)\).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This should not be surprising! We use \(DE^*(f)\) to give us the ‘best’ linear approximation around \(f\) along each direction \(h\).&lt;/p&gt;
+
+&lt;p&gt;The &lt;a href=&quot;https://en.wikipedia.org/wiki/Riesz_representation_theorem&quot;&gt;Riesz Representation Theorem&lt;/a&gt; then tells us that every linear functional \(L\) on a Hilbert space is actually of the form:
+\[
+    L = \langle \cdot, v \rangle
+\]
+for some \(v\) in the Hilbert space, where \(\langle \cdot, \cdot \rangle\) is the inner product in the Hilbert space.&lt;br /&gt;
+For an RKHS, the inner product is given by the kernel \(K\), so,
+\[
+    DE^*(f) = {\langle \cdot, DE(f) \rangle}_K
+\]
+for some \(DE(f) \in H_K\).
+This means, we can write:
+\[
+    DE^*(f)(h) = {\langle h, DE(f) \rangle}_K
+\]
+where \(DE(f) \in H_K\), which is what we had to show!&lt;/p&gt;
+
+&lt;h3 id=&quot;an-example&quot;&gt;An Example&lt;/h3&gt;
+&lt;p&gt;Consider the regression problem, where \(x_i,\) for \(i \in {1, \ldots, 20}\) are linearly spaced in \([-1, 1]\):
+\[
+    y_i = e^{-\left(\frac{x_i - 0.5}{0.5}\right)^2} + e^{-\left(\frac{x_i + 0.5}{0.5}\right)^2} + \frac{\mathcal{N}(0, 1)}{20}
+\]&lt;/p&gt;
+
+&lt;p&gt;Although this is a simple enough problem that would be easily solved by ‘ordinary’ gradient descent, we will demonstrate how functional gradient descent works here.&lt;/p&gt;
+
+&lt;p&gt;First, we need a loss function. We will use the L2 loss with regularization, \(L(f)\), defined above. We have already seen in Example 3, that the gradient of \(L(f)\) is:
+\[
+    DL(f) = \sum_{i = 1}^n -2 (y_i - f(x_i)) \cdot K(x_i, \cdot) + 2\lambda f.
+\]
+Let us define \(K\) as the RBF kernel with width \(0.5\). The presence of the Gaussian noise term above means the true hypothesis is not in \(H_K\), but we should get close!&lt;/p&gt;
+
+&lt;p&gt;We initialize \(\alpha_{f_0}\) randomly, and set:
+\[ 
+    f_0 = \sum_{i = 1}^{20} \alpha_{f_0i} K(\cdot, x_i) 
+\]
+and then start updating:
+\[
+    f_{t + 1} = f_t - \eta \cdot DL(f_t)
+\]&lt;/p&gt;
+
+&lt;p&gt;This makes sense! But if we want to represent this in code, we would have to represent these functions in some way. One way is to maintain the coefficients \(\alpha_{f_t}\) and kernel centers \(x_{C{f_t}}\) at every iteration. We can simplify this by deciding to store only \(\alpha_{f_t}\) (allowing zeros) and implicitly use all \(x_i\) as the kernel centers. This is actually the same as doing gradient descent on \(\alpha_f\)! Other ways would be to add training samples one-by-one in an online manner, maintaining/recomputing the function values only at the training points. However, this causes a complication wherein the function is only defined at the training samples. To fix this, instead of updating by the gradient, we update using smooth functions that approximate the gradient: this is exactly gradient boosting!&lt;/p&gt;
+
+&lt;p&gt;If we decide to represent our function implicitly by \(\alpha_f\) at each step, our updates are now:
+\[
+    \alpha_{f_{t + 1}} = 2 \eta (y - f_t(x)) +  (1 - 2\lambda\eta) \alpha_{f_t}
+\]
+where \(y - f_t(x)\) is a vector with \((y - f_t(x))_i = y_i - f_t(x_i)\).
+Check this!&lt;/p&gt;
+
+&lt;p&gt;If we implement all this, and plot the resulting learned hypothesis at each step of gradient descent:&lt;/p&gt;
+
+&lt;p style=&quot;text-align:center&quot;&gt;&lt;img src=&quot;/assets/images/functional_gradient_descent.gif&quot; alt=&quot;Functional Gradient Descent Example&quot; title=&quot;Functional Gradient Descent Example&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;indicating that functional gradient descent converges pretty fast, for our example.
+The code for this example is available &lt;a href=&quot;https://github.com/simple-complexities/simple-complexities.github.io/tree/master/code/functional_gradient_descent.py&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h3&gt;
+&lt;p&gt;We have seen:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Why functional gradient descent can be useful,&lt;/li&gt;
+  &lt;li&gt;What it means to do functional gradient descent, and,&lt;/li&gt;
+  &lt;li&gt;How we can do functional gradient descent, with an example.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;and that’s all I have for today.&lt;/p&gt;
+
+&lt;p&gt;I’m also starting to introduce a commenting facility via GitHub Issues, in order to not clutter up this space here. Comment &lt;a href=&quot;https://github.com/simple-complexities/simple-complexities.github.io/issues/3&quot;&gt;here&lt;/a&gt;!&lt;/p&gt;</content><author><name>Qiang He (何强)</name></author><category term="Optimization" /><summary type="html">Claim: This is a backup of this post!</summary></entry><entry><title type="html">配置ubuntu系统常用技能</title><link href="https://sweetice.github.io/posts/2019/12/skills-on-ubuntu/" rel="alternate" type="text/html" title="配置ubuntu系统常用技能" /><published>2019-12-25T00:00:00-08:00</published><updated>2019-12-25T00:00:00-08:00</updated><id>https://sweetice.github.io/posts/2019/12/Config_static_ipv6</id><content type="html" xml:base="https://sweetice.github.io/posts/2019/12/skills-on-ubuntu/">&lt;h2 id=&quot;配置静态ipv6地址&quot;&gt;配置静态ipv6地址&lt;/h2&gt;
 
 &lt;p&gt;首先进入编辑界面&lt;/p&gt;
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;vi /etc/network/interfaces
@@ -74,7 +390,7 @@
 
 &lt;p&gt;原理是替换掉python程序启动方式&lt;/p&gt;
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;alias python='run-one python'
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Qiang He (何强)</name></author><category term="skills" /><summary type="html">配置静态ipv6地址</summary></entry><entry><title type="html">How to plot performance figures in reinforcement learning papers</title><link href="http://sweetice.github.io/posts/2019/04/plot-performance-figures-in-rl/" rel="alternate" type="text/html" title="How to plot performance figures in reinforcement learning papers" /><published>2019-04-19T00:00:00-07:00</published><updated>2019-04-19T00:00:00-07:00</updated><id>http://sweetice.github.io/posts/2019/04/How-to-plot-figures-like-RL-papers</id><content type="html" xml:base="http://sweetice.github.io/posts/2019/04/plot-performance-figures-in-rl/">&lt;h1 id=&quot;如何绘制出强化学习论文里面的曲线图&quot;&gt;如何绘制出强化学习论文里面的曲线图&lt;/h1&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Qiang He (何强)</name></author><category term="skills" /><summary type="html">配置静态ipv6地址</summary></entry><entry><title type="html">How to plot performance figures in reinforcement learning papers</title><link href="https://sweetice.github.io/posts/2019/04/plot-performance-figures-in-rl/" rel="alternate" type="text/html" title="How to plot performance figures in reinforcement learning papers" /><published>2019-04-19T00:00:00-07:00</published><updated>2019-04-19T00:00:00-07:00</updated><id>https://sweetice.github.io/posts/2019/04/How-to-plot-figures-like-RL-papers</id><content type="html" xml:base="https://sweetice.github.io/posts/2019/04/plot-performance-figures-in-rl/">&lt;h1 id=&quot;如何绘制出强化学习论文里面的曲线图&quot;&gt;如何绘制出强化学习论文里面的曲线图&lt;/h1&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://s2.ax1x.com/2019/04/10/ATk7lt.png&quot; alt=&quot;论文里面好看的图&quot; /&gt;&lt;/p&gt;
 
@@ -145,7 +461,7 @@ err_style='band', err_kws=None, legend='brief', ax=None, **kwargs)¶
 置信区间的大小, 设置为”sd”时候,就会画出标准差范围.一般取95.
 -error_style&lt;br /&gt;
 误差带的类型,可在band和bars之间选择.一般选择band.&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Qiang He (何强)</name></author><category term="Reinforcement Learning" /><category term="skills" /><summary type="html">如何绘制出强化学习论文里面的曲线图</summary></entry><entry><title type="html">How to installation mpi4py in your ubuntu</title><link href="http://sweetice.github.io/posts/2019/03/install-mpi4py/" rel="alternate" type="text/html" title="How to installation mpi4py in your ubuntu" /><published>2019-03-18T00:00:00-07:00</published><updated>2019-03-18T00:00:00-07:00</updated><id>http://sweetice.github.io/posts/2019/03/How-to-install-mpi4py-in-your-ubuntu</id><content type="html" xml:base="http://sweetice.github.io/posts/2019/03/install-mpi4py/">&lt;h2 id=&quot;how-to-install-mpi4py-in-your-ubuntu-computer&quot;&gt;How to install mpi4py in your ubuntu computer&lt;/h2&gt;
+&lt;/ul&gt;</content><author><name>Qiang He (何强)</name></author><category term="Reinforcement Learning" /><category term="skills" /><summary type="html">如何绘制出强化学习论文里面的曲线图</summary></entry><entry><title type="html">How to installation mpi4py in your ubuntu</title><link href="https://sweetice.github.io/posts/2019/03/install-mpi4py/" rel="alternate" type="text/html" title="How to installation mpi4py in your ubuntu" /><published>2019-03-18T00:00:00-07:00</published><updated>2019-03-18T00:00:00-07:00</updated><id>https://sweetice.github.io/posts/2019/03/How-to-install-mpi4py-in-your-ubuntu</id><content type="html" xml:base="https://sweetice.github.io/posts/2019/03/install-mpi4py/">&lt;h2 id=&quot;how-to-install-mpi4py-in-your-ubuntu-computer&quot;&gt;How to install mpi4py in your ubuntu computer&lt;/h2&gt;
 
 &lt;p&gt;首先要说明的是，直接使用pip　安装并不可取．&lt;/p&gt;
 
@@ -263,7 +579,7 @@ You should consider upgrading via the 'pip install --upgrade pip' command.
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;这样子就说明安装成功了.&lt;/p&gt;</content><author><name>Qiang He (何强)</name></author><category term="skills" /><summary type="html">How to install mpi4py in your ubuntu computer</summary></entry><entry><title type="html">How to install cuda on ubuntu 1804</title><link href="http://sweetice.github.io/posts/2019/02/how-to-install-cuda-on-ubunutu-1804/" rel="alternate" type="text/html" title="How to install cuda on ubuntu 1804" /><published>2019-02-20T00:00:00-08:00</published><updated>2019-02-20T00:00:00-08:00</updated><id>http://sweetice.github.io/posts/2019/02/How-to-install-cuda-on-ubuntu1804</id><content type="html" xml:base="http://sweetice.github.io/posts/2019/02/how-to-install-cuda-on-ubunutu-1804/">&lt;h2 id=&quot;深度学习环境的安装-ubuntu-1804&quot;&gt;深度学习环境的安装 ubuntu 1804&lt;/h2&gt;
+&lt;p&gt;这样子就说明安装成功了.&lt;/p&gt;</content><author><name>Qiang He (何强)</name></author><category term="skills" /><summary type="html">How to install mpi4py in your ubuntu computer</summary></entry><entry><title type="html">How to install cuda on ubuntu 1804</title><link href="https://sweetice.github.io/posts/2019/02/how-to-install-cuda-on-ubunutu-1804/" rel="alternate" type="text/html" title="How to install cuda on ubuntu 1804" /><published>2019-02-20T00:00:00-08:00</published><updated>2019-02-20T00:00:00-08:00</updated><id>https://sweetice.github.io/posts/2019/02/How-to-install-cuda-on-ubuntu1804</id><content type="html" xml:base="https://sweetice.github.io/posts/2019/02/how-to-install-cuda-on-ubunutu-1804/">&lt;h2 id=&quot;深度学习环境的安装-ubuntu-1804&quot;&gt;深度学习环境的安装 ubuntu 1804&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;1.查看是否支持CUDA，清理掉原来的驱动&lt;/li&gt;
@@ -447,7 +763,7 @@ print(sess.run(c))
 
 &lt;p&gt;杀死这种命令&lt;/p&gt;
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kill -9 id
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Qiang He (何强)</name></author><category term="skills" /><summary type="html">深度学习环境的安装 ubuntu 1804</summary></entry><entry><title type="html">Computing the gradients of gradients with pytorch</title><link href="http://sweetice.github.io/posts/2019/01/compute-gradients-of-gradients/" rel="alternate" type="text/html" title="Computing the gradients of gradients with pytorch" /><published>2019-01-26T00:00:00-08:00</published><updated>2019-01-26T00:00:00-08:00</updated><id>http://sweetice.github.io/posts/2019/01/Compute%20the%20gradients%20of%20gradients%20with%20pytorch</id><content type="html" xml:base="http://sweetice.github.io/posts/2019/01/compute-gradients-of-gradients/">&lt;h2 id=&quot;computing-the-gradients-of-gradients-with-pytorch&quot;&gt;Computing the gradients of gradients with pytorch&lt;/h2&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Qiang He (何强)</name></author><category term="skills" /><summary type="html">深度学习环境的安装 ubuntu 1804</summary></entry><entry><title type="html">Computing the gradients of gradients with pytorch</title><link href="https://sweetice.github.io/posts/2019/01/compute-gradients-of-gradients/" rel="alternate" type="text/html" title="Computing the gradients of gradients with pytorch" /><published>2019-01-26T00:00:00-08:00</published><updated>2019-01-26T00:00:00-08:00</updated><id>https://sweetice.github.io/posts/2019/01/Compute%20the%20gradients%20of%20gradients%20with%20pytorch</id><content type="html" xml:base="https://sweetice.github.io/posts/2019/01/compute-gradients-of-gradients/">&lt;h2 id=&quot;computing-the-gradients-of-gradients-with-pytorch&quot;&gt;Computing the gradients of gradients with pytorch&lt;/h2&gt;
 
 &lt;p&gt;Rencently, I am working with GAN and RL.For the puspose of smoothing the learning process, I need compute the gradients of gradients(the second order of gradients).&lt;/p&gt;
 
@@ -528,7 +844,7 @@ allow_unused (bool, optional) – If False, specifying inputs that were not used
 
 &lt;p&gt;If you are interested in reinforcement learning and general aritificial intelligence, you can click &lt;a href=&quot;https://github.com/sweetice/Deep-reinforcement-learning-with-pytorch&quot;&gt;here&lt;/a&gt;. :)&lt;/p&gt;
 
-&lt;p&gt;Enjoy yourself :)&lt;/p&gt;</content><author><name>Qiang He (何强)</name></author><category term="Reinforcement Learning" /><category term="Pytorch" /><summary type="html">Computing the gradients of gradients with pytorch</summary></entry><entry><title type="html"></title><link href="http://sweetice.github.io/2019-03-13-NVIDIA-SMI/" rel="alternate" type="text/html" title="" /><published></published><updated></updated><id>http://sweetice.github.io/2019-03-13-NVIDIA-SMI</id><content type="html" xml:base="http://sweetice.github.io/2019-03-13-NVIDIA-SMI/">&lt;p&gt;#　NVIDIA-SMI has failed because it couldn’t communicate with the NVIDIA driver. Make sure that the latest NVIDIA driver is installed and running&lt;/p&gt;
+&lt;p&gt;Enjoy yourself :)&lt;/p&gt;</content><author><name>Qiang He (何强)</name></author><category term="Reinforcement Learning" /><category term="Pytorch" /><summary type="html">Computing the gradients of gradients with pytorch</summary></entry><entry><title type="html"></title><link href="https://sweetice.github.io/2019-03-13-NVIDIA-SMI/" rel="alternate" type="text/html" title="" /><published></published><updated></updated><id>https://sweetice.github.io/2019-03-13-NVIDIA-SMI</id><content type="html" xml:base="https://sweetice.github.io/2019-03-13-NVIDIA-SMI/">&lt;p&gt;#　NVIDIA-SMI has failed because it couldn’t communicate with the NVIDIA driver. Make sure that the latest NVIDIA driver is installed and running&lt;/p&gt;
 
 &lt;p&gt;#＃ 问题描述：&lt;/p&gt;
 

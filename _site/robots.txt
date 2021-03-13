@@ -1,1 +1,1 @@
-Sitemap: http://sweetice.github.io/sitemap.xml
+Sitemap: https://sweetice.github.io/sitemap.xml
