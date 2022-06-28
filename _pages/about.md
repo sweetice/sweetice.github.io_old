@@ -10,23 +10,20 @@ redirect_from:
 
 # Qiang He (何强)
 
-M.S. Student,
+PhD student @ University of Tuebingen
 
-Institute of Automation,  Chinese Academy of Sciences,
+Previsouly, Master student @ Institute of Automation,  Chinese Academy of Sciences,
 
-Email: heqiang2019 AT ia DOT ac DOT cn, johnyhe1997 AT gmail DOT com, qh AT cugb DOT edu DOT cn 
+Email: heqiang2019 AT ia DOT ac DOT cn, johnyhe1997 AT gmail DOT com, hq AT email DOT cugb DOT edu DOT cn 
 
 
 
 # Bio
 
-I'm currently a third-year master's student at [Insititute of Automation, Chinese Academy of Sciences](http://english.ia.cas.cn/). Before coming to the Institute of Automation, I received my B.E. in Electric Engineering from [China University of Geosciences, Beijing](https://www.cugb.edu.cn/) in 2019. 
+I'm currently an fisrt-year PhD student at [University of Tuebingen](https://uni-tuebingen.de/). Before coming to University of Tuebingen, I received my Master's degree in Pattern Recoginition and Intelligent System from [Insititute of Automation, Chinese Academy of Sciences](http://english.ia.cas.cn/). 
 
-I'm interested in reinforcement learning, machine learning. Specifically, my research idea is to propose or improve reinforcement learning algorithms inspired by mathematical logic. Currently, I am interested in the combination between optimization theory and RL.
+I'm interested in reinforcement learning, machine learning. Specifically, my research idea is to propose or improve reinforcement learning algorithms inspired by theoretical insights. Currently, I am interested in the combination between optimization theory and RL.
 
-
-
-<font color='red'>Currently, I am looking for a Ph.D. position.</font>
 
 
 
@@ -42,15 +39,17 @@ I'm interested in reinforcement learning, machine learning. Specifically, my res
 
 # Publications
 
+- ### Representation Gap in Deep Reinforcement Learning
 
+  Decision Awareness in Reinforcement Learning workshop at the International Conference on Machine Learning (ICML) 2022.
 
-- ### Combing Policy Evaluation and Policy Improvement in a Unified $f$-Divergence Framework
+- ### The f-Divergence Reinforcement Learning Framework
 
-  Underreview
+  arXiv preprint arXiv:2109.11867
 
 - ### MEPG: A Minimalist Ensemble Policy Gradient Framework for Deep Reinforcement Learning
 
-  Underreview
+  Decision Awareness in Reinforcement Learning workshop at the International Conference on Machine Learning (ICML) 2022.
 
 - ### Wide-sense Stationary Policy Optimization with Bellman Residual on Video Games
 
@@ -70,6 +69,8 @@ I'm interested in reinforcement learning, machine learning. Specifically, my res
 
 # Update and News
 
+- Jun. 2022 - Two papers are accepted in Decision Awareness in Reinforcement Learning workshop at ICML 2022.
+- Jun. 2022 - I broke my ankle bone and calcaneus bone, I have to rest for more than two mouthes :P 
 - Sep. 2021 - Serve as a eviewer for NeurIPS 2021 Workshop on Offline Reinforcement Learning
 - Mar. 2021 - One paper is accepted to ICME'21 (oral). See you in Shenzhen! 
 - Oct. 2020 - One paper to appear in NeurIPS'20 offline RL workshop. 
