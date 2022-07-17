@@ -39,13 +39,11 @@ I'm interested in reinforcement learning, machine learning. Specifically, my res
 
 # Publications
 
+## Peer-reviewed Papers
+
 - ### Representation Gap in Deep Reinforcement Learning
 
   Decision Awareness in Reinforcement Learning workshop at the International Conference on Machine Learning (ICML) 2022.
-
-- ### The f-Divergence Reinforcement Learning Framework
-
-  arXiv preprint arXiv:2109.11867
 
 - ### MEPG: A Minimalist Ensemble Policy Gradient Framework for Deep Reinforcement Learning
 
@@ -57,49 +55,29 @@ I'm interested in reinforcement learning, machine learning. Specifically, my res
 
 - ### POPO: Pessimistic Offline Policy Optimization
 
-  NeurIPS 2020 Offline RL Workshop
+  ICASSP'22, Another version appears to NeurIPS 2020 Offline RL Workshop
 
-- ### Optimization of Bellman Error Distribution based on SVGD in RL
-
-  Submitted to NeuroComputing, Underreview
 
 - ### WD3: Taming the Estimation Bias in Deep Reinforcement Learning
 
   ICTAI 2020, Oral
+  
+## Pre-print Papers
+
+- ### The f-Divergence Reinforcement Learning Framework
+  arXiv preprint arXiv:2109.11867
 
 # Update and News
 
 - Jun. 2022 - Two papers are accepted in Decision Awareness in Reinforcement Learning workshop at ICML 2022.
 - Jun. 2022 - I broke my ankle bone and calcaneus bone, I have to rest for more than two mouthes :P 
-- Sep. 2021 - Serve as a eviewer for NeurIPS 2021 Workshop on Offline Reinforcement Learning
+- Sep. 2021 - Serve as a reviewer for NeurIPS 2021 Workshop on Offline Reinforcement Learning
 - Mar. 2021 - One paper is accepted to ICME'21 (oral). See you in Shenzhen! 
 - Oct. 2020 - One paper to appear in NeurIPS'20 offline RL workshop. 
 - Sep. 2020 - One paper to appear in ICTAI'20 (Oral).
 
 
 
-
-
-<div style='display: none'>
-- Sep. 2021 - Four papers are submitted to AAAI'22
-- Sep. 2021 - Serve as a eviewer for NeurIPS 2021 Workshop on Offline Reinforcement Learning
-- Mar. 2021 - One paper is accepted to ICME’21 (oral). See you in Shenzhen!
-- Dec. 2020 - I join [SenseTime](https://www.sensetime.com/en) as a research intern.
-- Dec. 2020 - One paper is submitted to ICME’21.
-- Oct. 2020 - One paper is submitted to NeuroComputing.
-- Oct. 2020 - One paper is submitted to ICRA’21.
-- Oct. 2020 - One paper to appear in NeurIPS’20 offline RL workshop.
-- Sep. 2020 - One paper to appear in ICTAI’20 (Oral).
-</div>
-
-
-
-
-
-​    
-
-
-
 # Miscellaneous
 
-I'm very interested in science fiction. I am a big fan of [*Remembrance of Earth's Past* (三体, 地球往事三部曲)](https://en.wikipedia.org/wiki/Remembrance_of_Earth%27s_Past). I have read almost all the early Chinese science fiction. Besides, I am also a lover of literature. I like magical realism novels and realism novels. I like watching suspense movies. 
+I'm very interested in science fiction. I am a big fan of [*Remembrance of Earth's Past* (三体, 地球往事三部曲)](https://en.wikipedia.org/wiki/Remembrance_of_Earth%27s_Past). I have read almost all the early Chinese science fiction. Besides, I am also a lover of literature. I like magical realism novels and realism novels. I like watching suspense movies. My dear friend gave me a harmonica and I am trying to practice it.
